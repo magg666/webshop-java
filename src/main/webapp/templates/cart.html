@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="meta.html :: copy">
+    <title>Everything from soup to nuts</title>
+</head>
+<body>
+<nav th:include="header.html :: copy">
+</nav>
+<nav th:include="category.html :: copy">
+</nav>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">Available</th>
+                        <th scope="col" class="text-center">Quantity</th>
+                        <th scope="col" class="text-right">Price</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <!--<tr th:each="item : ${cart}">-->
+                    <!--<td><img src="https://via.placeholder.com/50"/></td>-->
+                    <!--<td th:text="${item.getProductName()}"></td>-->
+                    <!--<td>In stock</td>-->
+                    <!--<td><input class="form-control" type="text" value="1"/></td>-->
+                    <!--<td class="text-right" th:text="${item.getProductCost()} + ' $'"></td>-->
+                    <!--<td class="text-right">-->
+                    <!--<a th:href="@{cart(remove=${item.getProductId()})}" th:inline="text"><i-->
+                    <!--class="fa fa-trash"></i></a>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+
+                    <tr>
+                        <td><img src="https://via.placeholder.com/50"/></td>
+                        <td>Product name</td>
+                        <td>In stock</td>
+                        <td><input class="form-control" type="text" value="1"/></td>
+                        <td class="text-right">Price</td>
+                        <td class="text-right">
+                            <a><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Total</strong></td>
+                        <!--<td class="text-right"><strong th:text="${cartTotal} + ' $'"></strong></td>-->
+                        <td class="text-right"><strong>PRICE TOTAL</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <a href="/">
+                        <button class="btn btn-block btn-light">Continue Shopping</button>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <a href="/checkout">
+                        <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
