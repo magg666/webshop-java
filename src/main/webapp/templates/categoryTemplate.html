@@ -20,7 +20,7 @@
                         th:text="${category}"></h6>
                     <h6 class="card-subtitle mb-2 text-muted"
                         th:text="${productsByCategories.get(j).getSupplier().getName()}"></h6>
-                    <p class="card-text"><img src="https://via.placeholder.com/200"></p>
+                    <p class="card-text"><img style="width: 150px; height: 200px" src="" th:attr="src='/static/img/product_' + ${productsByCategories.get(j).getId} + '.jpg'" alt=""></p>
                     <a th:href="@{/(product_id=${productsByCategories.get(j).getId()})}"
                        class="btn btn-outline-danger card-footer">Add
                         to

@@ -68,7 +68,7 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Lost and Found", 2.66f, "USD", "Love novel", romance, steel));
         productDataStore.add(new Product("Fairytale", 2.99f, "USD", "Love novel again", romance, steel));
         productDataStore.add(new Product("The Notebook", 7.88f, "USD", "La La Land was based on this", romance, sparks));
-        productDataStore.add(new Product("See mee", 8.16f, "USD", "Rich in emotion and fueled with suspense", romance, sparks));
+        productDataStore.add(new Product("See me", 8.16f, "USD", "Rich in emotion and fueled with suspense", romance, sparks));
         productDataStore.add(new Product("Harry Potter", 69.15f, "USD", "The Illustrated Collection", teens, rowling));
         productDataStore.add(new Product("ASUS Vivobook K570ZD", 493.37f, "USD", "Full Hd", laptop, asus));
         productDataStore.add(new Product("ASUS Whole Home Dual-Band AiMesh Router", 134.99f, "USD", "Mesh Wifi System", router, asus));

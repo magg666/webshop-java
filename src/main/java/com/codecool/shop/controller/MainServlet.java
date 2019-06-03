@@ -19,5 +19,11 @@ public class MainServlet extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariables(params);
         engine.process(template, context, resp.getWriter());
+//        System.out.println("query "+req.getQueryString());
+//        System.out.println("pathTrans "+req.getPathTranslated());
+//        System.out.println("paramsNames "+req.getParameterNames());
+
     }
+
+
 }

@@ -19,7 +19,7 @@
                     <h5 th:inline="text">Price: [[${products.get(j).getPrice()}]]</h5>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${products.get(j).getProductCategory().getName()}"></h6>
                     <h6 class="card-subtitle mb-2 text-muted" th:text="${products.get(j).getSupplier().getName()}"></h6>
-                    <p class="card-text"><img src="https://via.placeholder.com/200"></p>
+                    <p class="card-text"><img style="width: 150px; height: 200px" src="" th:attr="src='/static/img/product_' + ${products.get(j).getId} + '.jpg'" alt=""></p>
                     <a th:href="@{/(product_id=${products.get(j).getId()})}" class="btn btn-outline-danger card-footer">Add
                         to
                         cart</a>

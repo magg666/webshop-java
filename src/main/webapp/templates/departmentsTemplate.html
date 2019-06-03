@@ -19,7 +19,8 @@
 
 <div class="container">
     <th:block th:each="i: ${#numbers.sequence(0, 3)}">
-        <div class="card-deck">
+        <div class="card-deck">//            String queryString = req.getQueryString();
+//            params.put("query", queryString);
             <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${productsByDepartments.size() gt j}"
                  class="card">
                 <div class="card-body">
@@ -29,7 +30,7 @@
                         th:text="${productsByDepartments.get(j).getProductCategory().getName()}"></h6>
                     <h6 class="card-subtitle mb-2 text-muted"
                         th:text="${productsByDepartments.get(j).getSupplier().getName()}"></h6>
-                    <p class="card-text"><img src="https://via.placeholder.com/200"></p>
+                    <p class="card-text"><img style="width: 150px; height: 200px" src="" th:attr="src='/static/img/product_' + ${productsByDepartments.get(j).getId} + '.jpg'" alt=""></p>
                     <a th:href="@{/(product_id=${productsByDepartments.get(j).getId()})}"
                        class="btn btn-outline-danger card-footer">Add
                         to
