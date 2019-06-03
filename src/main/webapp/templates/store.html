@@ -10,7 +10,7 @@
 </nav>
 
 <div class="container">
-    <th:block th:each="i: ${#numbers.sequence(0, 3)}">
+    <th:block th:each="i: ${#numbers.sequence(0, products.size()/3)}">
         <div class="card-deck">
 
             <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${products.size() gt j}" class="card">
@@ -24,28 +24,11 @@
                         to
                         cart</a>
                 </div>
-                <span th:text="${cart}"></span>
-                <span th:text="${cart.getAll()}"></span>
                 <div>
                 </div>
             </div>
         </div>
     </th:block>
-
-        <div class="card-deck">
-            <div class="card">
-                <div class="card-body">
-                    <h4>Product name</h4>
-                    <h5>Price</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Category</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Supplier</h6>
-                    <p class="card-text"><img src="https://via.placeholder.com/200"></p>
-                    <a class="btn btn-outline-danger card-footer">Add to cart</a>
-                </div>
-                <div>
-                </div>
-            </div>
-        </div>
 </div>
 
 

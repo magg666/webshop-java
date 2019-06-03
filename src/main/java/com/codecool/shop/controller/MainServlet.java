@@ -16,10 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
-    void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template) throws ServletException, IOException {
+    WebContext context;
+
+
+
+    void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template, String notYetKnown) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         ProductDao cart = CartDaoMem.getInstance();
+
 
 //        Map params = new HashMap<>();
 //        params.put("category", productCategoryDataStore.find(1));
@@ -27,9 +32,19 @@ public class MainServlet extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productCategoryDataStore.find(1));
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+
+        context.setVariable("category", productCategoryDataStore.getAll());
+        context.setVariable("categoryObject", productCategoryDataStore);
+        context.setVariable("departments", productCategoryDataStore.getAllDepartments());
+        context.setVariable("products", productDataStore.getAll());
         context.setVariable("cart", cart);
+        context.setVariable("productsByDepartments", productCategoryDataStore.getByDepartments(notYetKnown));
+
         engine.process(template, context, resp.getWriter());
     }
+
+//    void setVariable(String name, Object object){
+//        getContext().get;
+//
+//    }
 }

@@ -44,4 +44,29 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     public List<ProductCategory> getAll() {
         return data;
     }
+
+    @Override
+    public List<ProductCategory> getByDepartments(String department) {
+        List<ProductCategory> allProductCategory = getAll();
+        List<ProductCategory> categoryByDepartment = new ArrayList<>();
+        for (ProductCategory productCategory : allProductCategory) {
+            if (productCategory.getDepartment().equals(department)) {
+                categoryByDepartment.add(productCategory);
+            }
+        }
+        return categoryByDepartment;
+    }
+
+    @Override
+    public List<String> getAllDepartments() {
+        List<ProductCategory> allProductCategory = getAll();
+        List<String> allDepartments = new ArrayList<>();
+        for (ProductCategory category : allProductCategory) {
+            if (!allDepartments.contains(category.getDepartment())) {
+                allDepartments.add(category.getDepartment());
+            }
+        }
+        return allDepartments;
+    }
+
 }
