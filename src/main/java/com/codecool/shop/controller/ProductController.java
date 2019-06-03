@@ -16,22 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/"})
-public class ProductController extends HttpServlet {
+public class ProductController extends MainServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
-//        Map params = new HashMap<>();
-//        params.put("category", productCategoryDataStore.find(1));
-//        params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productCategoryDataStore.find(1));
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        engine.process("/store.html", context, resp.getWriter());
+        renderTemplate(req,resp,"/store.html");
     }
 
 }

@@ -10,24 +10,25 @@
 </nav>
 
 <div class="container">
-    <!--<th:block th:each="i: ${#numbers.sequence(0, 3)}">-->
-        <!--<div class="card-deck">-->
+    <th:block th:each="i: ${#numbers.sequence(0, 3)}">
+        <div class="card-deck">
 
-            <!--<div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${store.size() gt j}" class="card">-->
-                <!--<div class="card-body">-->
-                    <!--<h4 th:text="${store.get(j).getProductName()}"></h4>-->
-                    <!--<h5 th:inline="text">Price</h5>-->
-                    <!--<h6 class="card-subtitle mb-2 text-muted" th:text="${store.get(j).getProductCategory()}"></h6>-->
-                    <!--<p class="card-text"><img src="https://via.placeholder.com/200"></p>-->
-                    <!--<a th:href="@{/(product_id=${store.get(j).getProductId()})}" class="btn btn-outline-danger card-footer">Add-->
-                        <!--to-->
-                        <!--cart</a>-->
-                <!--</div>-->
-                <!--<div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</th:block>-->
+            <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${products.size() gt j}" class="card">
+                <div class="card-body">
+                    <h4 th:text="${products.get(j).getName()}"></h4>
+                    <h5 th:inline="text">Price: [[${products.get(j).getPrice()}]]</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${products.get(j).getProductCategory().getName()}"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${products.get(j).getSupplier().getName()}"></h6>
+                    <p class="card-text"><img src="https://via.placeholder.com/200"></p>
+                    <a th:href="@{/(product_id=${products.get(j).getId()})}" class="btn btn-outline-danger card-footer">Add
+                        to
+                        cart</a>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </th:block>
 
         <div class="card-deck">
             <div class="card">
