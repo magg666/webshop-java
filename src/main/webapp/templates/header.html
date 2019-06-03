@@ -36,9 +36,8 @@
                             <a href="/cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <!--<div class="qty" th:text="${cart.size()}"></div>-->
-                                <div class="qty"></div>
-                            </a>
+                                <div class="qty" th:text="${cart.getAll().size()}"></div>
+                                 </a>
                         </div>
                         <!-- /Cart -->
                     </div>
