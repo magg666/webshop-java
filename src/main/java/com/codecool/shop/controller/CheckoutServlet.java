@@ -26,15 +26,15 @@ public class CheckoutServlet extends MainServlet {
 
         if (!firstName.isEmpty()) {
             Map<String, Object> params = new HashMap<>();
-            params.put("message", "Super");
-            req.getRequestDispatcher("/").forward(req, resp); //wymaga doPost na serverze, do którego się kieruje.mozna przesłać w
+            params.put("message", 'A');
+            //req.getRequestDispatcher("/").forward(req, resp); //wymaga doPost na serverze, do którego się kieruje.mozna przesłać w
             // dupoście parametry
 //            resp.sendRedirect("/"); // po prostu przekierowuje
-//            renderTemplate(req, resp, "/confirmation.html", params); wyświetla potwierdzenie z messagem
+            renderTemplate(req, resp, "/confirmation.html", params); //wyświetla potwierdzenie z messagem
 
         } else {
             Map<String, Object> params = new HashMap<>();
-            params.put("message", "Not good");
+            params.put("message", 'B');
             renderTemplate(req, resp, "/confirmation.html", params);
         }
 

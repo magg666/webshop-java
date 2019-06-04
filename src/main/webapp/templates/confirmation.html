@@ -9,7 +9,11 @@
 <nav th:include="departments.html :: copy">
 </nav>
 
-<span th:text="${message}"></span>
+<p>
+    <span th:if="${message == 'A'}">Female</span>
+    <span th:unless="${message == 'A'}">Male</span>
+</p>
+
 
 </body>
 </html>
