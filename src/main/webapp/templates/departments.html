@@ -4,10 +4,9 @@
         <div id="responsive-nav" class="navbar-nav">
             <ul class="main-nav nav">
                 <li class="active"><a href="/">Home</a></li>
-                <!--<th:block th:each="c: ${category}">-->
-                     <!--<li class="nav-item"><a th:href="@{/(category=${c.categoryName(c.ordinal())})}" th:inline="text"></a></li>-->
-                <!--</th:block>-->
-                     <li class="nav-item"><a>Category</a></li>
+                <th:block th:each="department: ${departments}">
+                     <li class="nav-item"><a th:href="@{/(department=${department})}" th:inline="text">[[${department}]]</a></li>
+                </th:block>
             </ul>
         </div>
     </div>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="meta.html :: copy">
+    <title>Everything from soup to nuts</title>
+</head>
+<body>
+<nav th:include="header.html :: copy">
+</nav>
+<nav th:include="departments.html :: copy">
+</nav>
+<div class="container">
+    <th:block th:each="i: ${#numbers.sequence(0, 3)}">
+        <div class="card-deck">
+            <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${productsByCategories.size() gt j}"
+                 class="card">
+                <div class="card-body">
+                    <h4 th:text="${productsByCategories.get(j).getName()}"></h4>
+                    <h5 th:inline="text"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"
+                        th:text="${category}"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted"
+                        th:text="${productsByCategories.get(j).getSupplier().getName()}"></h6>
+                    <p class="card-text"><img style="width: 150px; height: 200px" src="" th:attr="src='/static/img/product_' + ${productsByCategories.get(j).getId} + '.jpg'" alt=""></p>
+                    <a th:href="@{/(product_id=${productsByCategories.get(j).getId()})}"
+                       class="btn btn-outline-danger card-footer">Add
+                        to
+                        cart</a>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</div>
+
+
+</body>
+</html>
