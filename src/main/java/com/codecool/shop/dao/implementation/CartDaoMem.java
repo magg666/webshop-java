@@ -8,7 +8,7 @@ import com.codecool.shop.model.Product;
 
 public class CartDaoMem implements CartDao {
 
-    Order order = new Order();
+    private Order order = new Order();
     private static CartDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
@@ -44,7 +44,7 @@ public class CartDaoMem implements CartDao {
         }
     }
 
-    LineItem getLineItemById(int id){
+    private LineItem getLineItemById(int id){
         ProductDao productDao = ProductDaoMem.getInstance();
         Product product = productDao.find(id);
         return new LineItem(product);
