@@ -16,8 +16,10 @@
     <div id="header">
         <div class="container">
             <div class="row">
-                <img src="../static/img/shop.png" style="width: 100px; height: 100px" alt="Shop logo">
-                <span class="text-title">ELEKTROPOLEX</span>
+                <a href="/">
+                    <img src="../static/img/shop.png" style="width: 100px; height: 100px" alt="Shop logo">
+                    <span class="text-title">ELEKTROPOLEX</span>
+                </a>
                 <div class="col-md-3 clearfix ml-auto">
                     <div class="header-ctn">
 
@@ -38,8 +40,8 @@
                                 <span>Your Cart</span>
 
                                 <!--try to show number here-->
-                                
-                                <!--<div class="qty" th:text="${cart}"></div>-->
+
+                                <!--<div class="qty" th:text="${order}"></div>-->
                                  </a>
                         </div>
                         <!-- /Cart -->
@@ -48,6 +50,7 @@
             </div>
         </div>
     </div>
-    <span th:text="${cart}"></span>
+    <!--/*@thymesVar id="order" type="java"*/-->
+    <span th:text="${order}"></span>
 </header>
 

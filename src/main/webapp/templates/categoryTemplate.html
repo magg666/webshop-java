@@ -11,6 +11,7 @@
 <div class="container">
     <th:block th:each="i: ${#numbers.sequence(0, 3)}">
         <div class="card-deck">
+            <!--/*@thymesVar id="productsByCategories" type="java"*/-->
             <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${productsByCategories.size() gt j}"
                  class="card">
                 <div class="card-body">

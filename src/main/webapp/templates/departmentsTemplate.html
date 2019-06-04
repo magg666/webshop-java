@@ -11,7 +11,9 @@
 
 <div class="container">
     <div class="card-deck">
+        <!--/*@thymesVar id="categoriesInDepartments" type="java"*/-->
         <div th:each="cat : ${categoriesInDepartments}" class="card">
+            <!--/*@thymesVar id="department" type="java"*/-->
             <a th:href="@{/(department=${department}, cat=${cat.getId()})}"><h4 th:text="${cat.getName()}"></h4></a>
         </div>
     </div>
@@ -20,6 +22,7 @@
 <div class="container">
     <th:block th:each="i: ${#numbers.sequence(0, 3)}">
         <div class="card-deck">
+            <!--/*@thymesVar id="productsByDepartments" type="java"*/-->
             <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${productsByDepartments.size() gt j}"
                  class="card">
                 <div class="card-body">

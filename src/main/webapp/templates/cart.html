@@ -27,14 +27,15 @@
 
                     <tbody>
 
-                    <tr th:each="item : ${cart}">
-                    <td><img src="https://via.placeholder.com/50"/></td>
+                    <!--/*@thymesVar id="order" type="java"*/-->
+                    <tr th:each="item : ${order}">
+                    <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
                     <td th:text="${item}"></td>
                     <!--<td>In stock</td>-->
                     <!--<td><input class="form-control" type="text" value="1"/></td>-->
                     <!--<td class="text-right" th:text="${item.getProductCost()} + ' $'"></td>-->
                     <!--<td class="text-right">-->
-                    <!--<a th:href="@{cart(remove=${item.getProductId()})}" th:inline="text"><i-->
+                    <!--<a th:href="@{order(remove=${item.getProductId()})}" th:inline="text"><i-->
                     <!--class="fa fa-trash"></i></a>-->
                     <!--</td>-->
                     </tr>
@@ -55,7 +56,7 @@
                         <td></td>
                         <td></td>
                         <td><strong>Total</strong></td>
-                        <!--<td class="text-right"><strong th:text="${cartTotal} + ' $'"></strong></td>-->
+                        <!--<td class="text-right"><strong th:text="${orderTotal} + ' $'"></strong></td>-->
                         <td class="text-right"><strong>PRICE TOTAL</strong></td>
                     </tr>
                     </tbody>
