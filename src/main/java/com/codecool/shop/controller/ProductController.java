@@ -41,7 +41,7 @@ public class ProductController extends MainServlet {
         if (productId != null) {
 //            String queryString = req.getQueryString();
 //            params.put("query", queryString);
-            cart.add(productDataStore.find(Integer.parseInt(productId)));
+
         }
 
         // searching page by departments and categories
