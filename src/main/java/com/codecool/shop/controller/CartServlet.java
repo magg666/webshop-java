@@ -33,7 +33,7 @@ public class CartServlet extends MainServlet {
         Map<String, Object> params = new HashMap<>();
         params.put("departments", productCategoryDataStore.getAllDepartments());
         params.put("products", productDataStore.getAll());
-        params.put("cart", order.getOrder().getOrderedProductsList());
+        params.put("cart", order.getOrder().getLineItemList());
 
         // define parameters for template
         String department = req.getParameter("department");

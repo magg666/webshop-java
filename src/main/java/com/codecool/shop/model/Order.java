@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Order extends BaseModel {
 
-    List <LineItem> orderedProductsList;
-    double totalPrice;
+    private List <LineItem> lineItemList;
+    private double totalPrice;
 
 
     public Order() {
         super("Order", "Data");
-        this.orderedProductsList = new ArrayList<>();
+        this.lineItemList = new ArrayList<>();
         this.totalPrice = 0;
 
     }
 
-    public List<LineItem> getOrderedProductsList() {
-        return orderedProductsList;
+    public List<LineItem> getLineItemList() {
+        return lineItemList;
     }
 
     public double getTotalPrice() {
@@ -25,19 +25,19 @@ public class Order extends BaseModel {
     }
 
     public void remove(LineItem lineItem){
-            orderedProductsList.remove(lineItem);
+            lineItemList.remove(lineItem);
     }
 
     public void add(LineItem lineItem){
-            orderedProductsList.add(lineItem);
+            lineItemList.add(lineItem);
 
     }
 //
 //    LineItem getLineItemById(int id){
 //        LineItem item = null;
-//        for(int i = 0; orderedProductsList.size() > i ; i++ )
-//            if (orderedProductsList.get(i).product.id == id) {
-//                item = orderedProductsList.get(i);
+//        for(int i = 0; lineItemList.size() > i ; i++ )
+//            if (lineItemList.get(i).product.id == id) {
+//                item = lineItemList.get(i);
 //            } else {
 //                item = null;
 //            }
