@@ -14,6 +14,7 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends MainServlet {
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // get necessary instances
