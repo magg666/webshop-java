@@ -32,6 +32,14 @@ public class Order extends BaseModel {
             lineItemList.add(lineItem);
 
     }
+
+    public int getOrderedItemsQuantity() {
+        int counter = 0;
+        for (LineItem lineItem: lineItemList) {
+            counter += lineItem.getQuantity();
+        }
+        return counter;
+    }
 //
 //    LineItem getLineItemById(int id){
 //        LineItem item = null;
