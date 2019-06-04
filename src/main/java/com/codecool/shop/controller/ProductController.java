@@ -1,9 +1,8 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.implementation.CartDaoMem;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +14,10 @@ import java.util.Map;
 public class ProductController extends MainServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // get necessary instances
         // try put it in main and get to it by 'super'?
-        CartDao order = CartDaoMem.getInstance();
+        OrderDao order = OrderDaoMem.getInstance();
 
         // define variables
         Map<String, Object> params = new HashMap<>();
@@ -42,18 +41,10 @@ public class ProductController extends MainServlet {
             renderTemplate(req, resp, "/store.html", params);
         }
 
-//        else {
-//            if (productsCategory != null) {
-//                int categoryId = Integer.parseInt(productsCategory);
-//                List <Product> productsByCategory = productCategoryDataStore.find(categoryId).getProducts();
-//                params.put("category", productCategoryDataStore.find(categoryId).getName());
-//                params.put("productsByCategories", productsByCategory);
-//                renderTemplate(req, resp, "/categoryTemplate.html", params);
-//            } else {
-//                params.put("categoriesInDepartments", productCategoryDataStore.getByDepartments(department));
-//                params.put("productsByDepartments", productDataStore.getByDepartments(department));
-//                renderTemplate(req, resp, "/departmentsTemplate.html", params);
-//            }
-//        }
+        else {
+            composeProductsDivision(req, resp, params, department, productsCategory);
+        }
     }
+
+
 }
