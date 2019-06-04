@@ -37,14 +37,15 @@ public class CartDaoMem implements CartDao {
 
     }
 
-    public void addById(int id, ProductDao productDao){
-        LineItem lineItem = getLineItemById(id, productDao);
+    public void addById(int id){
+        LineItem lineItem = getLineItemById(id);
         if(lineItem != null){
             order.add(lineItem);
         }
     }
 
-    LineItem getLineItemById(int id, ProductDao productDao){
+    LineItem getLineItemById(int id){
+        ProductDao productDao = ProductDaoMem.getInstance();
         Product product = productDao.find(id);
         return new LineItem(product);
     }

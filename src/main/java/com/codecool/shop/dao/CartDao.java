@@ -6,5 +6,5 @@ public interface CartDao {
 
     Order getOrder();
     void removeById(int id);
-    void addById(int id, ProductDao productDao);
+    void addById(int id);
 }
