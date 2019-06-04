@@ -18,7 +18,6 @@
                     <tr>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                        <th scope="col">Available</th>
                         <th scope="col" class="text-center">Quantity</th>
                         <th scope="col" class="text-right">Price</th>
                         <th></th>
@@ -28,14 +27,17 @@
                     <tbody>
 
                     <!--/*@thymesVar id="order" type="java"*/-->
-                    <tr th:each="item : ${order}">
+                    <tr th:each="lineItem : ${order}">
                     <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
-                    <td th:text="${item}"></td>
-                    <!--<td>In stock</td>-->
+                        <!--<td th:text="${lineItem.getProduct()}"></td>-->
+                    <td th:text="${lineItem.getProduct().name}"></td>
+                    <td th:text="${lineItem.getQuantity()}"></td>
+                    <td th:text="${lineItem.getProduct().getPrice()}"></td>
+                    <!--<td th:text="${lineItem.getTotalPrice()}"></td>-->
                     <!--<td><input class="form-control" type="text" value="1"/></td>-->
-                    <!--<td class="text-right" th:text="${item.getProductCost()} + ' $'"></td>-->
+                    <!--<td class="text-right" th:text="${lineItem.getProductCost()} + ' $'"></td>-->
                     <!--<td class="text-right">-->
-                    <!--<a th:href="@{order(remove=${item.getProductId()})}" th:inline="text"><i-->
+                    <!--<a th:href="@{order(remove=${lineItem.getProductId()})}" th:inline="text"><i-->
                     <!--class="fa fa-trash"></i></a>-->
                     <!--</td>-->
                     </tr>
