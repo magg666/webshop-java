@@ -5,50 +5,55 @@ import java.util.List;
 
 public class Order extends BaseModel {
 
-    private List <LineItem> lineItemList;
-    private double totalPrice;
-
+    private List<LineItem> lineItemList;
+    private float totalPrice;
 
     public Order() {
         super("Order", "Data");
         this.lineItemList = new ArrayList<>();
         this.totalPrice = 0;
-
     }
 
     public List<LineItem> getLineItemList() {
         return lineItemList;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public String getTotalPrice() {
+        defineTotalPrice();
+        return String.valueOf(totalPrice) + " " + "USD";
     }
 
-    public void remove(LineItem lineItem){
-            lineItemList.remove(lineItem);
+    public LineItem find(int productId) {
+        for (LineItem item : lineItemList) {
+            if (item.getProduct().getId() == productId) {
+                return item;
+            }
+        }
+        return null;
     }
 
-    public void add(LineItem lineItem){
-            lineItemList.add(lineItem);
+    public void add(LineItem lineItem) {
+        lineItem.setId(this.lineItemList.size() + 1);
+        this.lineItemList.add(lineItem);
+    }
 
+    public void remove(LineItem lineItem) {
+        lineItemList.remove(lineItem);
     }
 
     public int getOrderedItemsQuantity() {
         int counter = 0;
-        for (LineItem lineItem: lineItemList) {
+        for (LineItem lineItem : lineItemList) {
             counter += lineItem.getQuantity();
         }
         return counter;
     }
-//
-//    LineItem getLineItemById(int id){
-//        LineItem item = null;
-//        for(int i = 0; lineItemList.size() > i ; i++ )
-//            if (lineItemList.get(i).product.id == id) {
-//                item = lineItemList.get(i);
-//            } else {
-//                item = null;
-//            }
-//        return item;
-//    }
+
+    public void defineTotalPrice() {
+        float sumOfItemsPrices = 0;
+        for (LineItem item : lineItemList) {
+            sumOfItemsPrices += item.getPriceOfItems();
+        }
+        this.totalPrice = sumOfItemsPrices;
+    }
 }

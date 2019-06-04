@@ -17,49 +17,29 @@
                     <thead>
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col" class="text-center">Quantity</th>
-                        <th scope="col" class="text-right">Price</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
                         <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-
-                    <!--/*@thymesVar id="order" type="java"*/-->
                     <tr th:each="lineItem : ${order}">
-                    <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
-                        <!--<td th:text="${lineItem.getProduct()}"></td>-->
-                    <td th:text="${lineItem.getProduct().name}"></td>
-                    <td th:text="${lineItem.getQuantity()}"></td>
-                    <td th:text="${lineItem.getProduct().getPrice()}"></td>
-                    <!--<td th:text="${lineItem.getTotalPrice()}"></td>-->
-                    <!--<td><input class="form-control" type="text" value="1"/></td>-->
-                    <!--<td class="text-right" th:text="${lineItem.getProductCost()} + ' $'"></td>-->
-                    <!--<td class="text-right">-->
-                    <!--<a th:href="@{order(remove=${lineItem.getProductId()})}" th:inline="text"><i-->
-                    <!--class="fa fa-trash"></i></a>-->
-                    <!--</td>-->
+                        <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
+                        <td th:text="${lineItem.getProduct().name}"></td>
+                        <td th:text="${lineItem.getQuantity()}"></td>
+                        <td th:text="${lineItem.getTotalPrice()}"></td>
+                        <td><a th:href="@{order(remove=${lineItem.getId()})}" th:inline="text"><i
+                                class="fa fa-trash"></i>
+                        </a></td>
                     </tr>
-
-                    <!--<tr>-->
-                        <!--<td><img src="https://via.placeholder.com/50"/></td>-->
-                        <!--<td>Product name</td>-->
-                        <!--<td>In stock</td>-->
-                        <!--<td><input class="form-control" type="text" value="1"/></td>-->
-                        <!--<td class="text-right">Price</td>-->
-                        <!--<td class="text-right">-->
-                            <!--<a><i class="fa fa-trash"></i></a>-->
-                        <!--</td>-->
-                    <!--</tr>-->
                     <tr>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
                         <td><strong>Total</strong></td>
-                        <!--<td class="text-right"><strong th:text="${orderTotal} + ' $'"></strong></td>-->
-                        <td class="text-right"><strong>PRICE TOTAL</strong></td>
+                        <td><strong th:inline="text">[[${totalPrice}]]</strong></td>
+                        <td></td>
                     </tr>
                     </tbody>
                 </table>

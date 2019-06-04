@@ -1,14 +1,14 @@
 package com.codecool.shop.model;
 
-public class LineItem {
+public class LineItem extends BaseModel {
     private int quantity;
     private Product product;
-    private double totalPrice;
+    private float priceOfItems;
 
     public LineItem(Product product) {
         this.quantity = 1;
         this.product = product;
-        this.totalPrice = 0;
+        this.priceOfItems = this.product.getDefaultPrice();
     }
 
     public int getQuantity() {
@@ -19,7 +19,20 @@ public class LineItem {
         return product;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public float getPriceOfItems() {
+        return priceOfItems;
+    }
+
+    public String getTotalPrice() {
+        return String.valueOf(this.priceOfItems) + " " + this.product.getDefaultCurrency().toString();
+    }
+
+    public void increaseQuantity() {
+        this.quantity = this.quantity + 1;
+    }
+
+    public void changePriceOfItem() {
+        int newQuantity = getQuantity();
+        this.priceOfItems = newQuantity * this.product.getDefaultPrice();
     }
 }

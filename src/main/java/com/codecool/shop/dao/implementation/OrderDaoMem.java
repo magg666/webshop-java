@@ -24,30 +24,28 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public Order getOrder(){
+    public Order getOrder() {
         return this.order;
     }
 
     @Override
-     public void removeById(int id){
-//        LineItem lineItem = getLineItemById(id);
+    public void removeById(int id) {
+//        LineItem lineItem = createLineItemByProductId(id);
 //        if(lineItem != null){
 //            order.remove(lineItem);
 //        }
-
     }
 
-    public void addById(int id){
-        LineItem lineItem = getLineItemById(id);
-        if(lineItem != null){
-            order.add(lineItem);
+    public void addById(int productId) {
+        ProductDao productDao = ProductDaoMem.getInstance();
+        Product product = productDao.find(productId);
+        LineItem lineItem = order.find(productId);
+        if (lineItem == null) {
+            order.add(new LineItem(product));
+        } else {
+            lineItem.increaseQuantity();
+            lineItem.changePriceOfItem();
+
         }
     }
-
-    private LineItem getLineItemById(int id){
-        ProductDao productDao = ProductDaoMem.getInstance();
-        Product product = productDao.find(id);
-        return new LineItem(product);
-    }
-
 }

@@ -60,6 +60,6 @@ public class ProductDaoMem implements ProductDao {
 
     @Override
     public List<Product> getByDepartments(String department) {
-        return data.stream().filter(t -> t.getProductCategory().getDepartment() .equals(department)).collect(Collectors.toList());
+        return data.stream().filter(t -> t.getProductCategory().getDepartment().equals(department)).collect(Collectors.toList());
     }
 }

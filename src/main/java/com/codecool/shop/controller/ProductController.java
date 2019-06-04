@@ -15,16 +15,11 @@ public class ProductController extends MainServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-
-        // get necessary instances
-        // try put it in main and get to it by 'super'?
         OrderDao order = OrderDaoMem.getInstance();
 
-        // define variables
-        Map<String, Object> params = new HashMap<>();
-        params.put("cart", order.getOrder());
-        params.put("itemsCounter", order.getOrder().getOrderedItemsQuantity());
+        // define custom variables
+        Map<String, Object> additionalVariables = new HashMap<>();
+        additionalVariables.put("cart", order.getOrder());
 
         // define parameters for template
         String productId = req.getParameter("product_id");
@@ -33,19 +28,14 @@ public class ProductController extends MainServlet {
 
         // adding to cart
         if (productId != null) {
-//            String queryString = req.getQueryString();
-//            params.put("query", queryString);
             order.addById(Integer.parseInt(productId));
-
         }
 
-        // searching page by departments and categories -- to main navigateOnPage
+        // searching page by departments and categories
         if (department == null) {
-            renderTemplate(req, resp, "/store.html", params);
-        }
-
-        else {
-            composeProductsDivision(req, resp, params, department, productsCategory);
+            renderTemplate(req, resp, "/store.html", additionalVariables);
+        } else {
+            composeProductsDivision(req, resp, additionalVariables, department, productsCategory);
         }
     }
 

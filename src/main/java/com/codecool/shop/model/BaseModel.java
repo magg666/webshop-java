@@ -7,17 +7,19 @@ public class BaseModel {
 
     protected int id;
     protected String name;
-    protected String description;
+    String description;
 
-    public BaseModel(String name) {
+    BaseModel() {
+    }
+
+    BaseModel(String name) {
         this.name = name;
     }
 
-    public BaseModel(String name, String description) {
+    BaseModel(String name, String description) {
         this.name = name;
         this.description = description;
     }
-
 
     public int getId() {
         return id;
@@ -51,9 +53,9 @@ public class BaseModel {
             try {
                 Object value = field.get(this);
                 if (value != null) {
-                    sb.append(field.getName() + ":" + value + ",");
+                    sb.append(field.getName()).append(":").append(value).append(",");
                 }
-            } catch (IllegalAccessException e) {
+            } catch (IllegalAccessException ignored) {
 
             }
         }

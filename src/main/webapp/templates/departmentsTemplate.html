@@ -32,7 +32,9 @@
                         th:text="${productsByDepartments.get(j).getProductCategory().getName()}"></h6>
                     <h6 class="card-subtitle mb-2 text-muted"
                         th:text="${productsByDepartments.get(j).getSupplier().getName()}"></h6>
-                    <p class="card-text"><img style="width: 150px; height: 200px" src="" th:attr="src='/static/img/product_' + ${productsByDepartments.get(j).getId} + '.jpg'" alt=""></p>
+                    <p class="card-text"><img style="width: 150px; height: 200px" src=""
+                                              th:attr="src='/static/img/product_' + ${productsByDepartments.get(j).getId} + '.jpg'"
+                                              alt=""></p>
                     <a th:href="@{/(product_id=${productsByDepartments.get(j).getId()})}"
                        class="btn btn-outline-danger card-footer">Add
                         to

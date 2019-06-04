@@ -1,8 +1,10 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
@@ -20,21 +22,18 @@ public class MainServlet extends HttpServlet {
 
     private ProductDao productDataStore = ProductDaoMem.getInstance();
     private ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+    private OrderDao order = OrderDaoMem.getInstance();
 
-    void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template, Map<String, Object> params) throws IOException {
-
-
+    void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template, Map<String, Object> optionalVariables) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("departments", productCategoryDataStore.getAllDepartments());
         context.setVariable("products", productDataStore.getAll());
+        context.setVariable("itemsCounter", order.getOrder().getOrderedItemsQuantity());
 
-        context.setVariables(params);
+        // adds custom variables for servlets - must be given as HashMap<String, Object>
+        context.setVariables(optionalVariables);
         engine.process(template, context, resp.getWriter());
-//        System.out.println("query "+req.getQueryString());
-//        System.out.println("pathTrans "+req.getPathTranslated());
-//        System.out.println("paramsNames "+req.getParameterNames());
-
     }
 
     void composeProductsDivision(HttpServletRequest req, HttpServletResponse resp, Map<String, Object> params, String department, String productsCategory) throws IOException {

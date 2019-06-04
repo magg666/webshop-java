@@ -28,11 +28,12 @@ public class CustomerDaoMem implements CustomerDao {
 
     @Override
     public Customer findById(int id) {
-        for(Customer customer: allCustomers){
-            if(customer.getId() == id){
+        for (Customer customer : allCustomers) {
+            if (customer.getId() == id) {
                 return customer;
             }
-        }return null;
+        }
+        return null;
     }
 
     @Override
@@ -41,14 +42,12 @@ public class CustomerDaoMem implements CustomerDao {
     }
 
     @Override
-    public void addOrderToCustomerById(int id, Order order){
+    public void addOrderToCustomerById(int id, Order order) {
         Customer customer = findById(id);
         addOrderToCustomer(customer, order);
     }
 
-
     @Override
     public void sendEmailToCustomer() {
-
     }
 }

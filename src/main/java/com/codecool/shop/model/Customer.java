@@ -25,9 +25,13 @@ public class Customer extends BaseModel {
         this.password = password;
     }
 
-    public String getFirstName() {return firstName; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getLastName() {return lastName; }
+    public String getLastName() {
+        return lastName;
+    }
 
     public List<Order> getListOfOrders() {
         return listOfOrders;
