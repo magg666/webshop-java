@@ -15,6 +15,8 @@ public class ProductController extends MainServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+
         // get necessary instances
         // try put it in main and get to it by 'super'?
         OrderDao order = OrderDaoMem.getInstance();
@@ -22,6 +24,7 @@ public class ProductController extends MainServlet {
         // define variables
         Map<String, Object> params = new HashMap<>();
         params.put("cart", order.getOrder());
+        params.put("itemsCounter", order.getOrder().getOrderedItemsQuantity());
 
         // define parameters for template
         String productId = req.getParameter("product_id");

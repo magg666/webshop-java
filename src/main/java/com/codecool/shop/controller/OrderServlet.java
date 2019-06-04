@@ -31,6 +31,8 @@ public class OrderServlet extends MainServlet {
         params.put("departments", productCategoryDataStore.getAllDepartments());
         params.put("products", productDataStore.getAll());
         params.put("order", order.getOrder().getLineItemList());
+//        order -> lineItemList -> for(LineItem lineItem : lineItemList) itemsInCart += lineItem.getQuantity
+        params.put("itemsCounter", order.getOrder().getOrderedItemsQuantity());
 
         // define parameters for template
         String department = req.getParameter("department");
