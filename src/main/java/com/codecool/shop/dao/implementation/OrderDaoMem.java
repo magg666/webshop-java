@@ -1,24 +1,24 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
-public class CartDaoMem implements CartDao {
+public class OrderDaoMem implements OrderDao {
 
     private Order order = new Order();
-    private static CartDaoMem instance = null;
+    private static OrderDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private CartDaoMem() {
+    private OrderDaoMem() {
     }
 
-    public static CartDaoMem getInstance() {
+    public static OrderDaoMem getInstance() {
         if (instance == null) {
-            instance = new CartDaoMem();
+            instance = new OrderDaoMem();
         }
         return instance;
     }

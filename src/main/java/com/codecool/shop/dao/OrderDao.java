@@ -2,7 +2,7 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.model.Order;
 
-public interface CartDao {
+public interface OrderDao {
 
     Order getOrder();
     void removeById(int id);
