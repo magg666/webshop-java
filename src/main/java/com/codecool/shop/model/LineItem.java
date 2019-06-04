@@ -1,9 +1,9 @@
 package com.codecool.shop.model;
 
 public class LineItem {
-    int quantity;
-    Product product;
-    double totalPrice;
+    private int quantity;
+    private Product product;
+    private double totalPrice;
 
     public LineItem(Product product) {
         this.quantity = 1;
