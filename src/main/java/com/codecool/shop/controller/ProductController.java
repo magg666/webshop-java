@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
@@ -22,15 +23,16 @@ public class ProductController extends MainServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // get necessary instances
-        ProductDao cart = CartDaoMem.getInstance();
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        CartDao order = CartDaoMem.getInstance();
 
         // define variables
         Map<String, Object> params = new HashMap<>();
         params.put("departments", productCategoryDataStore.getAllDepartments());
         params.put("products", productDataStore.getAll());
-        params.put("cart", cart);
+        params.put("cart", order.getOrder());
 
         // define parameters for template
         String productId = req.getParameter("product_id");
@@ -41,6 +43,7 @@ public class ProductController extends MainServlet {
         if (productId != null) {
 //            String queryString = req.getQueryString();
 //            params.put("query", queryString);
+            order.addById(Integer.parseInt(productId), productDataStore);
 
         }
 

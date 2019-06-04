@@ -10,4 +10,16 @@ public class LineItem {
         this.product = product;
         this.totalPrice = 0;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
 }

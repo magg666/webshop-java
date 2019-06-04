@@ -27,9 +27,9 @@
 
                     <tbody>
 
-                    <!--<tr th:each="item : ${cart}">-->
-                    <!--<td><img src="https://via.placeholder.com/50"/></td>-->
-                    <!--<td th:text="${item.getProductName()}"></td>-->
+                    <tr th:each="item : ${cart}">
+                    <td><img src="https://via.placeholder.com/50"/></td>
+                    <td th:text="${item}"></td>
                     <!--<td>In stock</td>-->
                     <!--<td><input class="form-control" type="text" value="1"/></td>-->
                     <!--<td class="text-right" th:text="${item.getProductCost()} + ' $'"></td>-->
@@ -37,18 +37,18 @@
                     <!--<a th:href="@{cart(remove=${item.getProductId()})}" th:inline="text"><i-->
                     <!--class="fa fa-trash"></i></a>-->
                     <!--</td>-->
-                    <!--</tr>-->
-
-                    <tr>
-                        <td><img src="https://via.placeholder.com/50"/></td>
-                        <td>Product name</td>
-                        <td>In stock</td>
-                        <td><input class="form-control" type="text" value="1"/></td>
-                        <td class="text-right">Price</td>
-                        <td class="text-right">
-                            <a><i class="fa fa-trash"></i></a>
-                        </td>
                     </tr>
+
+                    <!--<tr>-->
+                        <!--<td><img src="https://via.placeholder.com/50"/></td>-->
+                        <!--<td>Product name</td>-->
+                        <!--<td>In stock</td>-->
+                        <!--<td><input class="form-control" type="text" value="1"/></td>-->
+                        <!--<td class="text-right">Price</td>-->
+                        <!--<td class="text-right">-->
+                            <!--<a><i class="fa fa-trash"></i></a>-->
+                        <!--</td>-->
+                    <!--</tr>-->
                     <tr>
                         <td></td>
                         <td></td>

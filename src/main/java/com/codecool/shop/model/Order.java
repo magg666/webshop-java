@@ -5,33 +5,42 @@ import java.util.List;
 
 public class Order extends BaseModel {
 
-    List<LineItem> order;
-
+    List <LineItem> orderedProductsList;
     double totalPrice;
 
 
     public Order() {
         super("Order", "Data");
-        this.order = new ArrayList<>();
+        this.orderedProductsList = new ArrayList<>();
         this.totalPrice = 0;
 
     }
-    public void remove(int id){
-        LineItem lineItem = getLineItemById(id);
-        if(lineItem != null){
-            order.remove(lineItem);
-        }
 
+    public List<LineItem> getOrderedProductsList() {
+        return orderedProductsList;
     }
 
-    LineItem getLineItemById(int id){
-        LineItem item = null;
-        for(int i = 0; order.size() > i ; i++ )
-            if (order.get(i).product.id == id) {
-                item = order.get(i);
-            } else {
-                item = null;
-            }
-        return item;
+    public double getTotalPrice() {
+        return totalPrice;
     }
+
+    public void remove(LineItem lineItem){
+            orderedProductsList.remove(lineItem);
+    }
+
+    public void add(LineItem lineItem){
+            orderedProductsList.add(lineItem);
+
+    }
+//
+//    LineItem getLineItemById(int id){
+//        LineItem item = null;
+//        for(int i = 0; orderedProductsList.size() > i ; i++ )
+//            if (orderedProductsList.get(i).product.id == id) {
+//                item = orderedProductsList.get(i);
+//            } else {
+//                item = null;
+//            }
+//        return item;
+//    }
 }
