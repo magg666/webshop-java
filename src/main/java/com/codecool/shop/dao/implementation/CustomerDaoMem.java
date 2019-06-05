@@ -50,4 +50,14 @@ public class CustomerDaoMem implements CustomerDao {
     @Override
     public void sendEmailToCustomer() {
     }
+
+    @Override
+    public boolean doesCustomerExist(String email) {
+        for (Customer customer : allCustomers) {
+            if (customer.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
