@@ -30,7 +30,7 @@
                         <td th:text="${lineItem.getProduct().name}"></td>
                         <td th:text="${lineItem.getQuantity()}"></td>
                         <td th:text="${lineItem.getTotalPrice()}"></td>
-                        <td><a th:href="@{order(remove=${lineItem.getId()})}" th:inline="text"><i
+                        <td><a th:href="@{cart(remove=${lineItem.getId()})}" th:inline="text"><i
                                 class="fa fa-trash"></i>
                         </a></td>
                     </tr>

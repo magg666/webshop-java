@@ -30,10 +30,15 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void removeById(int id) {
-//        LineItem lineItem = createLineItemByProductId(id);
-//        if(lineItem != null){
-//            order.remove(lineItem);
-//        }
+        LineItem lineItem = order.findById(id);
+        if (lineItem != null && lineItem.getQuantity() > 1) {
+            lineItem.decreaseQuantity();
+            lineItem.changePriceOfItem();
+        } else if (lineItem != null) {
+            order.remove(lineItem);
+        } else {
+            System.out.println("You are terrible, terrible person...");
+        }
     }
 
     public void addById(int productId) {

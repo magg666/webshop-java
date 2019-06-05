@@ -27,9 +27,10 @@ public class OrderServlet extends MainServlet {
         String productsCategory = req.getParameter("cat");
         String lineItemId = req.getParameter("remove");
 
-        // adding to cart
+        // removing from cart
         if (lineItemId != null) {
             order.removeById(Integer.parseInt(lineItemId));
+            resp.sendRedirect("/cart");
         }
 
         // searching page by departments and categories

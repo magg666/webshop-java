@@ -31,6 +31,10 @@ public class LineItem extends BaseModel {
         this.quantity = this.quantity + 1;
     }
 
+    public void decreaseQuantity() {
+        this.quantity = this.quantity - 1;
+    }
+
     public void changePriceOfItem() {
         int newQuantity = getQuantity();
         this.priceOfItems = newQuantity * this.product.getDefaultPrice();

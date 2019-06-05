@@ -32,6 +32,15 @@ public class Order extends BaseModel {
         return null;
     }
 
+    public LineItem findById(int id) {
+        for (LineItem item : lineItemList) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public void add(LineItem lineItem) {
         lineItem.setId(this.lineItemList.size() + 1);
         this.lineItemList.add(lineItem);
