@@ -23,6 +23,7 @@ public class CustomerDaoMem implements CustomerDao {
 
     @Override
     public void addCustomer(Customer customer) {
+        customer.setId(allCustomers.size() + 1);
         allCustomers.add(customer);
     }
 
@@ -49,5 +50,25 @@ public class CustomerDaoMem implements CustomerDao {
 
     @Override
     public void sendEmailToCustomer() {
+    }
+
+    @Override
+    public boolean doesCustomerExist(String email) {
+        for (Customer customer : allCustomers) {
+            if (customer.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int getCustomerId(String email) {
+        for (Customer customer : allCustomers) {
+            if (customer.getEmail().equals(email)) {
+                return customer.getId();
+            }
+        }
+        return -1;
     }
 }

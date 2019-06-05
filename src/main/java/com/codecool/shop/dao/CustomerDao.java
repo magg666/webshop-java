@@ -15,4 +15,8 @@ public interface CustomerDao {
 
     void sendEmailToCustomer();
 
+    boolean doesCustomerExist(String email);
+
+    int getCustomerId(String email);
+
 }
