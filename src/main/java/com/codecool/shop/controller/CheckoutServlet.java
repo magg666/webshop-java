@@ -1,5 +1,12 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.CustomerDao;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.CustomerDaoMem;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Customer;
+import com.codecool.shop.model.Order;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +25,9 @@ public class CheckoutServlet extends MainServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
+        OrderDao order = OrderDaoMem.getInstance();
+        CustomerDao customersList = CustomerDaoMem.getInstance();
+
         String firstName = req.getParameter("first-name");
         String lastName = req.getParameter("last-name");
         String email = req.getParameter("email");
@@ -35,10 +45,22 @@ public class CheckoutServlet extends MainServlet {
         String[] shippingAddress = new String[]{shipAddress, shipZipCode, shipCity, shipCountry};
         String[] billingAddress = new String[]{address, zipCode, city, country};
 
-        /* TODO
-        * if doesCustomerExist(String email)
-        *   this.customer = CustomerWithMail
-        * else
-        *   this.customer = new Customer()*/
+        System.out.println(firstName);
+        System.out.println(lastName);
+        System.out.println(phoneNumber);
+
+        if (customersList.doesCustomerExist(email)) {
+            int currentCustomerId = customersList.getCustomerId(email);
+            customersList.findById(currentCustomerId).getListOfOrders().add((Order) order);
+            order.addCustomerId(currentCustomerId);
+        } else {
+            Customer customer = new Customer(firstName, lastName, billingAddress, shippingAddress, phoneNumber, email);
+
+            customersList.addCustomer(customer);
+            order.addCustomerId(customer.getId());
+            System.out.println("new customer -> " + customer);
+        }
+
+        resp.sendRedirect("/payment");
     }
 }

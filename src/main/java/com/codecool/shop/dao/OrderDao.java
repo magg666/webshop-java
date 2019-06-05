@@ -9,4 +9,6 @@ public interface OrderDao {
     void removeById(int id);
 
     void addById(int id);
+
+    void addCustomerId(int customerId);
 }

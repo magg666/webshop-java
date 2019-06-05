@@ -7,11 +7,13 @@ public class Order extends BaseModel {
 
     private List<LineItem> lineItemList;
     private float totalPrice;
+    private int customerId;
 
     public Order() {
         super("Order", "Data");
         this.lineItemList = new ArrayList<>();
         this.totalPrice = 0;
+        this.customerId = -1;
     }
 
     public List<LineItem> getLineItemList() {
@@ -64,5 +66,13 @@ public class Order extends BaseModel {
             sumOfItemsPrices += item.getPriceOfItems();
         }
         this.totalPrice = sumOfItemsPrices;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }

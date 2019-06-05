@@ -17,4 +17,6 @@ public interface CustomerDao {
 
     boolean doesCustomerExist(String email);
 
+    int getCustomerId(String email);
+
 }

@@ -41,6 +41,7 @@ public class OrderDaoMem implements OrderDao {
         }
     }
 
+    @Override
     public void addById(int productId) {
         ProductDao productDao = ProductDaoMem.getInstance();
         Product product = productDao.find(productId);
@@ -52,5 +53,10 @@ public class OrderDaoMem implements OrderDao {
             lineItem.changePriceOfItem();
 
         }
+    }
+
+    @Override
+    public void addCustomerId(int customerId) {
+        order.setCustomerId(customerId);
     }
 }
