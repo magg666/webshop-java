@@ -5,6 +5,7 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.CustomerDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Customer;
+import com.codecool.shop.model.Util;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class CheckoutServlet extends MainServlet {
 
         OrderDao order = OrderDaoMem.getInstance();
         CustomerDao allCustomers = CustomerDaoMem.getInstance();
+        Util util = new Util();
 
         String firstName = req.getParameter("first-name");
         String lastName = req.getParameter("last-name");
@@ -42,22 +44,30 @@ public class CheckoutServlet extends MainServlet {
         String shipZipCode = req.getParameter("ship-zip-code");
         String[] shippingAddress = new String[]{shipAddress, shipZipCode, shipCity, shipCountry};
         String[] billingAddress = new String[]{address, zipCode, city, country};
+        String[] checkoutData = new String[]{firstName, lastName, email, address, city, country, zipCode, phoneNumber, shipAddress, shipCity, shipCountry, shipZipCode};
 
-
-        if (allCustomers.doesCustomerExist(email)) {
-            int currentCustomerId = allCustomers.getCustomerId(email);
-            // put as much in CustomerDaoMem. add order to customer.listOfOrders
+        /* TODO
+        * billingAddress == shippingAddress
+        * add order to customer - this is not adding*/
+        if (util.isNotNull(checkoutData)) {
+            if (allCustomers.doesCustomerExist(email)) {
+                int currentCustomerId = allCustomers.getCustomerId(email);
+                // put as much in CustomerDaoMem. add order to customer.listOfOrders
 //            allCustomers.findById(currentCustomerId).getListOfOrders().add((Order) order);
 //            allCustomers.addOrderToCustomerById(currentCustomerId, order);
-            order.addCustomerId(currentCustomerId);
+                order.addCustomerId(currentCustomerId);
 
+            } else {
+                Customer customer = new Customer(firstName, lastName, billingAddress, shippingAddress, phoneNumber, email);
+
+                allCustomers.addCustomer(customer);
+                order.addCustomerId(customer.getId());
+            }
+
+            resp.sendRedirect("/payment");
         } else {
-            Customer customer = new Customer(firstName, lastName, billingAddress, shippingAddress, phoneNumber, email);
-
-            allCustomers.addCustomer(customer);
-            order.addCustomerId(customer.getId());
+            resp.sendRedirect("/checkout");
         }
 
-        resp.sendRedirect("/payment");
     }
 }
