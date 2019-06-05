@@ -51,6 +51,7 @@ public class CheckoutServlet extends MainServlet {
 
         if (customersList.doesCustomerExist(email)) {
             int currentCustomerId = customersList.getCustomerId(email);
+            // put as much in CustomerDaoMem. add order to customer.listOfOrders
             customersList.findById(currentCustomerId).getListOfOrders().add((Order) order);
             order.addCustomerId(currentCustomerId);
         } else {
