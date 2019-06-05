@@ -108,4 +108,5 @@ public class Customer extends BaseModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

@@ -5,9 +5,7 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.CustomerDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Order;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +21,10 @@ public class CheckoutServlet extends MainServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         OrderDao order = OrderDaoMem.getInstance();
-        CustomerDao customersList = CustomerDaoMem.getInstance();
+        CustomerDao allCustomers = CustomerDaoMem.getInstance();
 
         String firstName = req.getParameter("first-name");
         String lastName = req.getParameter("last-name");
@@ -45,21 +43,19 @@ public class CheckoutServlet extends MainServlet {
         String[] shippingAddress = new String[]{shipAddress, shipZipCode, shipCity, shipCountry};
         String[] billingAddress = new String[]{address, zipCode, city, country};
 
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(phoneNumber);
 
-        if (customersList.doesCustomerExist(email)) {
-            int currentCustomerId = customersList.getCustomerId(email);
+        if (allCustomers.doesCustomerExist(email)) {
+            int currentCustomerId = allCustomers.getCustomerId(email);
             // put as much in CustomerDaoMem. add order to customer.listOfOrders
-            customersList.findById(currentCustomerId).getListOfOrders().add((Order) order);
+//            allCustomers.findById(currentCustomerId).getListOfOrders().add((Order) order);
+//            allCustomers.addOrderToCustomerById(currentCustomerId, order);
             order.addCustomerId(currentCustomerId);
+
         } else {
             Customer customer = new Customer(firstName, lastName, billingAddress, shippingAddress, phoneNumber, email);
 
-            customersList.addCustomer(customer);
+            allCustomers.addCustomer(customer);
             order.addCustomerId(customer.getId());
-            System.out.println("new customer -> " + customer);
         }
 
         resp.sendRedirect("/payment");

@@ -22,7 +22,7 @@ public class MainServlet extends HttpServlet {
 
     private ProductDao productDataStore = ProductDaoMem.getInstance();
     private ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    private OrderDao order = OrderDaoMem.getInstance();
+    OrderDao order = OrderDaoMem.getInstance();
 
     void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template, Map<String, Object> optionalVariables) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
