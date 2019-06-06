@@ -11,4 +11,8 @@ public interface OrderDao {
     void addById(int id);
 
     void addCustomerId(int customerId);
+
+    void setPayment(String paymentMethod);
+
+    void clearOrder();
 }
