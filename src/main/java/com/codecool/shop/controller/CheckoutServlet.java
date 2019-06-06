@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutServlet extends MainServlet {
@@ -58,7 +56,9 @@ public class CheckoutServlet extends MainServlet {
         session.setAttribute("address", shippingAddress);
         session.setAttribute("email", email);
 
-
+        /* TODO
+        * billingAddress == shippingAddress
+        * add order to customer - this is not adding*/
         if (util.isNotNull(checkoutData)) {
             if (allCustomers.doesCustomerExist(email)) {
                 int currentCustomerId = allCustomers.getCustomerId(email);
