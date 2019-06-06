@@ -3,7 +3,7 @@ package com.codecool.shop.model;
 public class LineItem extends BaseModel {
     private int quantity;
     private Product product;
-    private float priceOfItems;
+    private transient float priceOfItems;
 
     public LineItem(Product product) {
         this.quantity = 1;

@@ -7,7 +7,7 @@ public class BaseModel {
 
     protected int id;
     protected String name;
-    String description;
+    transient String description;
 
     BaseModel() {
     }

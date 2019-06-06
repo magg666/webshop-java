@@ -6,7 +6,7 @@ import java.util.List;
 public class Order extends BaseModel {
 
     private List<LineItem> lineItemList;
-    private float totalPrice;
+    private transient float totalPrice;
     private int customerId;
     private String paymentMethod;
 
