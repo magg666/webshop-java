@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutServlet extends MainServlet {
@@ -65,8 +63,6 @@ public class CheckoutServlet extends MainServlet {
                 Customer customer = allCustomers.findById(currentCustomerId);
                 allCustomers.addOrderToCustomer(customer, order.getOrder());
                 order.addCustomerId(currentCustomerId);
-
-
             } else {
                 Customer customer = new Customer(firstName, lastName, billingAddress, shippingAddress, phoneNumber, email);
                 allCustomers.addCustomer(customer);
@@ -75,10 +71,11 @@ public class CheckoutServlet extends MainServlet {
             }
             resp.sendRedirect("/payment");
         } else {
-            String message = "Unfortunately you didn't put right values in fields. Insert correct data to continue";
-            Map<String, Object> additionalVariables = new HashMap<>();
-            additionalVariables.put("message", message);
-            renderTemplate(req, resp, "/checkout.html", additionalVariables);
+            resp.sendRedirect("/checkout");
+//            String message = "Unfortunately you didn't put right values in fields. Insert correct data to continue";
+//            Map<String, Object> additionalVariables = new HashMap<>();
+//            additionalVariables.put("message", message);
+//            renderTemplate(req, resp, "/checkout.html", additionalVariables);
         }
     }
 }
