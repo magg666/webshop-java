@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +15,8 @@ import java.util.Map;
 public class PaymentServlet extends MainServlet {
 
 
-
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Map<String, Object> orderVariables = makeMapOfOrderVariables();
         renderTemplate(req, resp, "/paymentTemplate.html", orderVariables);
 
@@ -24,27 +24,43 @@ public class PaymentServlet extends MainServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
         OrderDao order = OrderDaoMem.getInstance();
+        Util util = new Util();
 
         String paymentMethod = req.getParameter("payment");
         String terms = req.getParameter("terms");
-
-
-
+        String cardOwner = req.getParameter("cc-owner");
+        String cardCvv = req.getParameter("cc-cvv");
+        String cardNumber = req.getParameter("cc-cardNumber");
+        String cardExpMonth = req.getParameter("cc-exp-month");
+        String cardExpYear = req.getParameter("cc-exp-year");
+        String paypalMail = req.getParameter("paypal-mail");
+        String paypalPassword = req.getParameter("paypal-password");
+        String[] paypalData = new String[]{paypalMail, paypalPassword};
+        String[] cardData = new String[]{cardOwner, cardCvv, cardNumber, cardExpMonth, cardExpYear};
 
 
         //compare selected value
-        if ("transfer".equals(paymentMethod)) {
-            order.getOrder().setPaymentMethod("transfer");
+        if ("direct".equals(paymentMethod)) {
+            order.getOrder().setPaymentMethod("direct");
+            sendMail(req, resp);
+            resp.sendRedirect("/thank-you");
+            System.out.println("payment method");
+            System.out.println(order.getOrder().getPaymentMethod());
         } else if ("card".equals(paymentMethod)) {
-            order.getOrder().setPaymentMethod("card");
+            if (util.isNotNull(cardData)) {
+                order.getOrder().setPaymentMethod("card");
+                sendMail(req, resp);
+                resp.sendRedirect("/thank-you");
+            }
         } else if ("paypal".equals(paymentMethod)) {
-            order.getOrder().setPaymentMethod("paypal");
+            if (util.isNotNull(paypalData)) {
+                order.getOrder().setPaymentMethod("paypal");
+                sendMail(req, resp);
+                resp.sendRedirect("/thank-you");
+            }
         }
-
-        System.out.println(order.getOrder().getPaymentMethod());
-
-        sendMail(req, resp);
-        resp.sendRedirect("/thank-you");
+        resp.sendRedirect("/payment");
     }
 }

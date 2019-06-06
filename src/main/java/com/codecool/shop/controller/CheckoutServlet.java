@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutServlet extends MainServlet {
@@ -45,32 +47,38 @@ public class CheckoutServlet extends MainServlet {
         String shipZipCode = req.getParameter("ship-zip-code");
         String[] shippingAddress = new String[]{shipAddress, shipZipCode, shipCity, shipCountry};
         String[] billingAddress = new String[]{address, zipCode, city, country};
-        String[] checkoutData = new String[]{firstName, lastName, email, address, city, country, zipCode, phoneNumber, shipAddress, shipCity, shipCountry, shipZipCode};
-    HttpSession session = req.getSession();
-            session.setAttribute("name", firstName + " " + lastName);
+        String[] checkoutData = new String[]{firstName, lastName, email, address, city, country, zipCode, phoneNumber};
+        HttpSession session = req.getSession();
 
-        /* TODO
-        * billingAddress == shippingAddress
-        * add order to customer - this is not adding*/
+
+        if (!util.isNotNull(shippingAddress)) {
+            System.arraycopy(billingAddress, 0, shippingAddress, 0, shippingAddress.length);
+        }
+        session.setAttribute("name", firstName + " " + lastName);
+        session.setAttribute("address", shippingAddress);
+        session.setAttribute("email", email);
+
+
         if (util.isNotNull(checkoutData)) {
             if (allCustomers.doesCustomerExist(email)) {
                 int currentCustomerId = allCustomers.getCustomerId(email);
-                // put as much in CustomerDaoMem. add order to customer.listOfOrders
-//            allCustomers.findById(currentCustomerId).getListOfOrders().add((Order) order);
-//            allCustomers.addOrderToCustomerById(currentCustomerId, order);
+                Customer customer = allCustomers.findById(currentCustomerId);
+                allCustomers.addOrderToCustomer(customer, order.getOrder());
                 order.addCustomerId(currentCustomerId);
+
 
             } else {
                 Customer customer = new Customer(firstName, lastName, billingAddress, shippingAddress, phoneNumber, email);
-
                 allCustomers.addCustomer(customer);
+                allCustomers.addOrderToCustomer(customer, order.getOrder());
                 order.addCustomerId(customer.getId());
             }
-
             resp.sendRedirect("/payment");
         } else {
-            resp.sendRedirect("/checkout");
+            String message = "Unfortunately you didn't put right values in fields. Insert correct data to continue";
+            Map<String, Object> additionalVariables = new HashMap<>();
+            additionalVariables.put("message", message);
+            renderTemplate(req, resp, "/checkout.html", additionalVariables);
         }
-
     }
 }
