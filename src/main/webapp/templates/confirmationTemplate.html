@@ -13,27 +13,37 @@
     <div class="container">
         <div class="text-center">
             <h4 class="title" th:inline="text">Hi [[${name}]],</h4>
-            <h4>Your order No: </h4>
+            <h4>Your order: </h4>
         </div>
         <div th:include="order.html :: copy"></div>
         <div>
-            <h4>Your items will be shipped immediately</h4>
+            <center><h4>Your items will be shipped immediately</h4></center>
         </div>
         <div>
             <h5>adress</h5>
         </div>
-        <div>
-            Let us know your experience
+
+        <br>
+        <br>
+        <div >
+            <a href="/" style="float:left" class="primary-btn order-submit">Go to main page</a>
         </div>
-        <div>
-            Best regards,<br><br> Amazon - The Beginning<br>CEO and
+        <span>
+            <a href="#" style="float:right" class="primary-btn order-submit">Unsubscribe</a>
+        </span>
+        <br>
+        <br>
+        <br>
+        <div style="float:right;height:200px">
+            Let us know your experience<br><br>
+
+            Best regards,<br>Amazon - The Beginning<br>CEO and
             Founder<br>
-            <a href="/">Go to main page</a>
         </div>
-        <div>
-            <a href="#">Unsubscribe</a> from
-            our emails
-        </div>
+
+
+
+
     </div>
 </div>
 </body>
