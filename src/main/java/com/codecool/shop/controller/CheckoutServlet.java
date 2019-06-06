@@ -46,12 +46,12 @@ public class CheckoutServlet extends MainServlet {
         String[] shippingAddress = new String[]{shipAddress, shipZipCode, shipCity, shipCountry};
         String[] billingAddress = new String[]{address, zipCode, city, country};
         String[] checkoutData = new String[]{firstName, lastName, email, address, city, country, zipCode, phoneNumber, shipAddress, shipCity, shipCountry, shipZipCode};
-    HttpSession session = req.getSession();
-            session.setAttribute("name", firstName + " " + lastName);
+        HttpSession session = req.getSession();
+        session.setAttribute("name", firstName + " " + lastName);
 
         /* TODO
-        * billingAddress == shippingAddress
-        * add order to customer - this is not adding*/
+         * billingAddress == shippingAddress
+         * add order to customer - this is not adding*/
         if (util.isNotNull(checkoutData)) {
             if (allCustomers.doesCustomerExist(email)) {
                 int currentCustomerId = allCustomers.getCustomerId(email);
