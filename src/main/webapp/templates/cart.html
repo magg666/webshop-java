@@ -30,18 +30,23 @@
                         <td th:text="${lineItem.getProduct().name}"></td>
                         <td>
                             <form action="/cart" method="post">
-                                <input type="text" id="newvalue" name="quantity" th:value="${lineItem.getQuantity()}" />
-                                <input type="hidden" name="lineItemId" th:value ="${lineItem.getId()}"/>
-                                <button type="submit" >Change</button>
+                                <input type="text" id="newvalue" name="quantity" th:value="${lineItem.getQuantity()}"/>
+                                <input type="hidden" name="lineItemId" th:value="${lineItem.getId()}"/>
+                                <button type="submit">Change</button>
                             </form>
                         </td>
                         <td th:text="${lineItem.getTotalPrice()}"></td>
-                        <td><a th:href="@{cart(remove=${lineItem.getId()})}" th:inline="text"><i
-                                class="fa fa-trash"></i>
-                        </a></td>
+                        <td>
+                            <form action="/cart" method="post">
+                                <button class="btn btn-outline-danger card-footer" type="submit" name="remove"
+                                        th:value="${lineItem.getId()}" th:inline="text"><i
+                                        class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     <tr th:if="${message!= null}">
-                        <td  th:text="${message}"></td>
+                        <td th:text="${message}"></td>
                     </tr>
 
                     <tr th:unless="${message != null}">

@@ -24,13 +24,6 @@ public class OrderServlet extends MainServlet {
         // define parameters for template
         String department = req.getParameter("department");
         String productsCategory = req.getParameter("cat");
-        String lineItemId = req.getParameter("remove");
-
-        // removing from cart
-        if (lineItemId != null) {
-            order.removeById(Integer.parseInt(lineItemId));
-            resp.sendRedirect("/cart");
-        }
 
         // searching page by departments and categories
         if (department == null) {
@@ -44,12 +37,17 @@ public class OrderServlet extends MainServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         OrderDao order = OrderDaoMem.getInstance();
         Util util = new Util();
-
+        String lineItemIdToRemove = req.getParameter("remove");
         String newQuantity = req.getParameter("quantity");
-        int lineItemId = Integer.parseInt(req.getParameter("lineItemId"));
-        LineItem currentLineItem = order.getOrder().getLineItemList().get(lineItemId - 1);
+        String lineItemId = req.getParameter("lineItemId");
 
-        if (util.checkNumber(newQuantity)) {
+
+        // removing from cart by trash button
+        if (lineItemIdToRemove != null) {
+            order.removeById(Integer.parseInt(lineItemIdToRemove));
+            resp.sendRedirect("/cart");
+        } else if (util.checkNumber(newQuantity)) {
+            LineItem currentLineItem = order.getOrder().getLineItemList().get(Integer.parseInt(lineItemId) - 1);
             currentLineItem.setQuantity(Integer.parseInt(newQuantity));
             currentLineItem.changePriceOfItem();
             resp.sendRedirect("/cart");
