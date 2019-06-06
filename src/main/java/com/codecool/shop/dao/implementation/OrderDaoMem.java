@@ -59,4 +59,16 @@ public class OrderDaoMem implements OrderDao {
     public void addCustomerId(int customerId) {
         order.setCustomerId(customerId);
     }
+
+    @Override
+    public void setPayment(String paymentMethod){
+        if(paymentMethod != null){
+            getOrder().setPaymentMethod(paymentMethod);
+        }
+    }
+
+    @Override
+    public void clearOrder(){
+        order = new Order();
+    }
 }
