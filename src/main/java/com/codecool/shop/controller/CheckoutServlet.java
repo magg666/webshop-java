@@ -67,8 +67,6 @@ public class CheckoutServlet extends MainServlet {
                 order.addCustomerId(customer.getId());
             }
 
-
-        resp.sendRedirect("/payment");
             resp.sendRedirect("/payment");
         } else {
             resp.sendRedirect("/checkout");
