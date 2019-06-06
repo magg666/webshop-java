@@ -32,6 +32,7 @@
                         <td>
                             <form action="/cart" method="post">
                                 <input type="text" id="newvalue" name="quantity" th:value="${lineItem.getQuantity()}" />
+                                <input type="hidden" name="lineItemId" th:value ="${lineItem.getId()}"/>
                                 <button type="submit" >Change</button>
                             </form>
                         </td>

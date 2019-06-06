@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.LineItem;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,5 +36,21 @@ public class OrderServlet extends MainServlet {
         } else {
             composeProductsDivision(req, resp, orderVariables, department, productsCategory);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        OrderDao order = OrderDaoMem.getInstance();
+
+        String newQuantity = req.getParameter("quantity");
+        String lineItemId = req.getParameter("lineItemId");
+        LineItem currentLineItem = order.getOrder().getLineItemList().get(Integer.parseInt(lineItemId)-1);
+
+        System.out.println(newQuantity+" "+lineItemId);
+
+        currentLineItem.setQuantity(Integer.parseInt(newQuantity));
+        currentLineItem.changePriceOfItem();
+
+        resp.sendRedirect("/cart");
     }
 }

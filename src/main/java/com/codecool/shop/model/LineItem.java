@@ -39,4 +39,8 @@ public class LineItem extends BaseModel {
         int newQuantity = getQuantity();
         this.priceOfItems = newQuantity * this.product.getDefaultPrice();
     }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
