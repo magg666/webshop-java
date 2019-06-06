@@ -35,10 +35,15 @@
                     <p class="card-text"><img style="width: 150px; height: 200px" src=""
                                               th:attr="src='/static/img/product_' + ${productsByDepartments.get(j).getId} + '.jpg'"
                                               alt=""></p>
-                    <a th:href="@{/(product_id=${productsByDepartments.get(j).getId()})}"
-                       class="btn btn-outline-danger card-footer">Add
-                        to
-                        cart</a>
+                    <form action="/" method="post">
+                        <button class="btn btn-outline-danger card-footer" type="submit" name="add"
+                                th:value="${productsByDepartments.get(j).getId()}">Add to cart
+                        </button>
+                    </form>
+                    <!--<a th:href="@{/(product_id=${productsByDepartments.get(j).getId()})}"-->
+                       <!--class="btn btn-outline-danger card-footer">Add-->
+                        <!--to-->
+                        <!--cart</a>-->
                 </div>
                 <div>
                 </div>

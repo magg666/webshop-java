@@ -22,14 +22,14 @@ public class ProductController extends MainServlet {
         additionalVariables.put("cart", order.getOrder());
 
         // define parameters for template
-        String productId = req.getParameter("product_id");
+//        String productId = req.getParameter("product_id");
         String department = req.getParameter("department");
         String productsCategory = req.getParameter("cat");
 
-        // adding to cart
-        if (productId != null) {
-            order.addById(Integer.parseInt(productId));
-        }
+//        // adding to cart
+//        if (productId != null) {
+//            order.addById(Integer.parseInt(productId));
+//        }
 
         // searching page by departments and categories
         if (department == null) {
@@ -38,6 +38,14 @@ public class ProductController extends MainServlet {
             composeProductsDivision(req, resp, additionalVariables, department, productsCategory);
         }
     }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String productId = req.getParameter("add");
 
-
+        // adding to cart
+        if (productId != null) {
+            order.addById(Integer.parseInt(productId));
+        }
+        resp.sendRedirect("/");
+    }
 }

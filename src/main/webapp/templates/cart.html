@@ -41,7 +41,11 @@
                                 class="fa fa-trash"></i>
                         </a></td>
                     </tr>
-                    <tr>
+                    <tr th:if="${message!= null}">
+                        <td  th:text="${message}"></td>
+                    </tr>
+
+                    <tr th:unless="${message != null}">
                         <td></td>
                         <td></td>
                         <td><strong>Total</strong></td>
