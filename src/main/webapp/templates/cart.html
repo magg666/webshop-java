@@ -19,6 +19,7 @@
                         <th scope="col"></th>
                         <th scope="col">Product</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
                         <th></th>
                     </tr>
@@ -28,7 +29,12 @@
                     <tr th:each="lineItem : ${order}">
                         <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
                         <td th:text="${lineItem.getProduct().name}"></td>
-                        <td th:text="${lineItem.getQuantity()}"></td>
+                        <td>
+                            <form action="/cart" method="post">
+                                <input type="text" id="newvalue" name="quantity" th:value="${lineItem.getQuantity()}" />
+                                <button type="submit" >Change</button>
+                            </form>
+                        </td>
                         <td th:text="${lineItem.getTotalPrice()}"></td>
                         <td><a th:href="@{cart(remove=${lineItem.getId()})}" th:inline="text"><i
                                 class="fa fa-trash"></i>
