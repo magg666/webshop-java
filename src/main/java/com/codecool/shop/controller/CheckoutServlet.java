@@ -45,7 +45,7 @@ public class CheckoutServlet extends MainServlet {
         String shipZipCode = req.getParameter("ship-zip-code");
         String[] shippingAddress = new String[]{shipAddress, shipZipCode, shipCity, shipCountry};
         String[] billingAddress = new String[]{address, zipCode, city, country};
-        String[] checkoutData = new String[]{firstName, lastName};
+        String[] checkoutData = new String[]{firstName, lastName, email, address, city, country, zipCode, phoneNumber};
         HttpSession session = req.getSession();
 
 
