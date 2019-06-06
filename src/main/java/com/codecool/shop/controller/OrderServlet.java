@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.Util;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,15 +42,20 @@ public class OrderServlet extends MainServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         OrderDao order = OrderDaoMem.getInstance();
+        Util util = new Util();
 
         String newQuantity = req.getParameter("quantity");
-        String lineItemId = req.getParameter("lineItemId");
-        LineItem currentLineItem = order.getOrder().getLineItemList().get(Integer.parseInt(lineItemId)-1);
+        int lineItemId =Integer.parseInt(req.getParameter("lineItemId"));
+        LineItem currentLineItem = order.getOrder().getLineItemList().get(lineItemId-1);
 
         System.out.println(newQuantity+" "+lineItemId);
+        if(util.checkNumber(newQuantity) <= 0){
+            order.removeById(lineItemId);
+        }
 
         currentLineItem.setQuantity(Integer.parseInt(newQuantity));
         currentLineItem.changePriceOfItem();
+
 
         resp.sendRedirect("/cart");
     }
