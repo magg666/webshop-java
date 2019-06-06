@@ -60,7 +60,10 @@ public class PaymentServlet extends MainServlet {
                 sendMail(req, resp);
                 resp.sendRedirect("/thank-you");
             }
+        } else {
+            resp.sendRedirect("/payment");
         }
-        resp.sendRedirect("/payment");
+//
+//        renderTemplate(req, resp, "/paymentTemplate.html", null);
     }
 }
