@@ -16,6 +16,10 @@ public class ConfirmationServlet extends MainServlet {
 
         Map<String, Object> additionalVariables = makeMapOfOrderVariables();;
         additionalVariables.put("name", session.getAttribute("name"));
+        additionalVariables.put("address", session.getAttribute("address"));
+        additionalVariables.put("email", session.getAttribute("email"));
+
+        order.clearOrder();
 
         renderTemplate(req, resp, "/confirmationTemplate.html", additionalVariables);
     }
