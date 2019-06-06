@@ -42,10 +42,12 @@ public class PaymentServlet extends MainServlet {
 
 
         //compare selected value
-        if ("transfer".equals(paymentMethod)) {
-            order.getOrder().setPaymentMethod("transfer");
+        if ("direct".equals(paymentMethod)) {
+            order.getOrder().setPaymentMethod("direct");
             sendMail(req, resp);
             resp.sendRedirect("/thank-you");
+            System.out.println("payment method");
+            System.out.println(order.getOrder().getPaymentMethod());
         } else if ("card".equals(paymentMethod)) {
             if (util.isNotNull(cardData)) {
                 order.getOrder().setPaymentMethod("card");
