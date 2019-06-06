@@ -17,4 +17,18 @@ public class Util {
 
     }
 
+    public boolean isPaymentAndTermsChecked(String paymentMethod, String terms){
+        return paymentMethod != null && terms != null;
+    }
+
+    public boolean isChosenPaymentFilled(String payment, String[] cardData, String[] paypalData){
+        final boolean b = true;
+        if(payment.equals("direct")){
+            return b;
+        } else if (payment.equals("card") && isNotNull(cardData)){
+            return b;
+        }else if (payment.equals("paypal") && isNotNull(paypalData)){
+            return b;
+        }return false;
+    }
 }
