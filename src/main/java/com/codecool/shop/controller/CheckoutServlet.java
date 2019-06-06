@@ -58,9 +58,7 @@ public class CheckoutServlet extends MainServlet {
         session.setAttribute("address", shippingAddress);
         session.setAttribute("email", email);
 
-        /* TODO
-        * billingAddress == shippingAddress
-        * add order to customer - this is not adding*/
+
         if (util.isNotNull(checkoutData)) {
             if (allCustomers.doesCustomerExist(email)) {
                 int currentCustomerId = allCustomers.getCustomerId(email);
