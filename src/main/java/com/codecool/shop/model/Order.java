@@ -7,11 +7,22 @@ public class Order extends BaseModel {
 
     private List<LineItem> lineItemList;
     private float totalPrice;
+    private int customerId;
+    private String paymentMethod;
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 
     public Order() {
         super("Order", "Data");
         this.lineItemList = new ArrayList<>();
         this.totalPrice = 0;
+        this.customerId = -1;
     }
 
     public List<LineItem> getLineItemList() {
@@ -20,7 +31,7 @@ public class Order extends BaseModel {
 
     public String getTotalPrice() {
         defineTotalPrice();
-        return String.valueOf(totalPrice) + " " + "USD";
+        return totalPrice + " " + "USD";
     }
 
     public LineItem find(int productId) {
@@ -58,11 +69,19 @@ public class Order extends BaseModel {
         return counter;
     }
 
-    public void defineTotalPrice() {
+    private void defineTotalPrice() {
         float sumOfItemsPrices = 0;
         for (LineItem item : lineItemList) {
             sumOfItemsPrices += item.getPriceOfItems();
         }
         this.totalPrice = sumOfItemsPrices;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="meta.html :: copy">
+
+</head>
+<body>
+<nav th:include="header.html :: copy">
+</nav>
+<nav th:include="departments.html :: copy">
+</nav>
+
+<div class="section">
+    <div class="container">
+        <div class="text-center">
+            <h4 class="title" th:inline="text">Hi [[${name}]],</h4>
+            <h4>Your order No: </h4>
+        </div>
+        <div th:include="order.html :: copy"></div>
+        <div>
+            <h4>Your items will be shipped immediately</h4>
+        </div>
+        <div>
+            <h5>adress</h5>
+        </div>
+        <div>
+            Let us know your experience
+        </div>
+        <div>
+            Best regards,<br><br> Amazon - The Beginning<br>CEO and
+            Founder<br>
+            <a href="/">Go to main page</a>
+        </div>
+        <div>
+            <a href="#">Unsubscribe</a> from
+            our emails
+        </div>
+    </div>
+</div>
+</body>
+</html>

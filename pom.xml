@@ -40,8 +40,8 @@
                 <configuration>
                     <!-- On some configs this causes shutdown of context on -->
                     <!-- a page load so disabled. -->
-                    <!-- <reload>automatic</reload> -->
-                    <!-- <scanIntervalSeconds>1</scanIntervalSeconds> -->
+                     <!--<reload>automatic</reload>-->
+                     <!--<scanIntervalSeconds>1</scanIntervalSeconds>-->
                 </configuration>
             </plugin>
         </plugins>
@@ -64,6 +64,11 @@
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>3.0.9.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.5.0-b01</version>
         </dependency>
     </dependencies>
 </project>

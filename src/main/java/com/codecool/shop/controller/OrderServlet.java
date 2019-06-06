@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/cart"})
@@ -17,10 +16,7 @@ public class OrderServlet extends MainServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         OrderDao order = OrderDaoMem.getInstance();
 
-        // define variables
-        Map<String, Object> additionalVariables = new HashMap<>();
-        additionalVariables.put("order", order.getOrder().getLineItemList());
-        additionalVariables.put("totalPrice", order.getOrder().getTotalPrice());
+        Map<String, Object> orderVariables = makeMapOfOrderVariables();
 
         // define parameters for template
         String department = req.getParameter("department");
@@ -35,9 +31,9 @@ public class OrderServlet extends MainServlet {
 
         // searching page by departments and categories
         if (department == null) {
-            renderTemplate(req, resp, "/cart.html", additionalVariables);
+            renderTemplate(req, resp, "/cart.html", orderVariables);
         } else {
-            composeProductsDivision(req, resp, additionalVariables, department, productsCategory);
+            composeProductsDivision(req, resp, orderVariables, department, productsCategory);
         }
     }
 }

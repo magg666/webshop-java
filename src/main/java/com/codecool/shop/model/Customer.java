@@ -1,29 +1,41 @@
 package com.codecool.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends BaseModel {
     private List<Order> listOfOrders;
     private String firstName;
     private String lastName;
-    private String billingAddress;
-    private String shippingAddress;
+    private String[] billingAddress;
+    private String[] shippingAddress;
     private String phone;
     private String email;
     private boolean hasAccount;
     private String password;
 
 
-    public Customer(List<Order> listOfOrders, String firstName, String lastName, String billingAddress, String shippingAddress, String phone, String email, boolean hasAccount, String password) {
+    public Customer(String firstName, String lastName, String[] billingAddress, String[] shippingAddress, String phone, String email) {
         super(firstName + " " + lastName);
-        this.listOfOrders = listOfOrders;
+        this.listOfOrders = new ArrayList<>();
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
         this.phone = phone;
         this.email = email;
-        this.hasAccount = hasAccount;
-        this.password = password;
+        this.hasAccount = false;
+        this.password = null;
     }
+
+//    public Customer(List<Order> listOfOrders, String firstName, String lastName, String[] billingAddress, String[] shippingAddress, String phone, String email, boolean hasAccount, String password) {
+//        super(firstName + " " + lastName);
+//        this.listOfOrders = new ArrayList<>();
+//        this.billingAddress = billingAddress;
+//        this.shippingAddress = shippingAddress;
+//        this.phone = phone;
+//        this.email = email;
+//        this.hasAccount = false;
+//        this.password = null;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -37,11 +49,11 @@ public class Customer extends BaseModel {
         return listOfOrders;
     }
 
-    public String getBillingAddress() {
+    public String[] getBillingAddress() {
         return billingAddress;
     }
 
-    public String getShippingAddress() {
+    public String[] getShippingAddress() {
         return shippingAddress;
     }
 
@@ -73,11 +85,11 @@ public class Customer extends BaseModel {
         this.lastName = lastName;
     }
 
-    public void setBillingAddress(String billingAddress) {
+    public void setBillingAddress(String[] billingAddress) {
         this.billingAddress = billingAddress;
     }
 
-    public void setShippingAddress(String shippingAddress) {
+    public void setShippingAddress(String[] shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
@@ -96,4 +108,5 @@ public class Customer extends BaseModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

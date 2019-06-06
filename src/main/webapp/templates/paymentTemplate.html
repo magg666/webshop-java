@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="meta.html :: copy">
+    <title>Everything from soup to nuts</title>
+</head>
+<body>
+<nav th:include="header.html :: copy">
+</nav>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="lineItem : ${order}">
+                    <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
+                    <td th:text="${lineItem.getProduct().name}"></td>
+                    <td th:text="${lineItem.getQuantity()}"></td>
+                    <td th:text="${lineItem.getTotalPrice()}"></td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><strong>Total</strong></td>
+                    <td><strong th:inline="text">[[${totalPrice}]]</strong></td>
+
+                </tr>
+                </tbody>
+            </table>
+            <form action="/payment" method="post">
+                <div class="payment-method">
+                    <h3 class="title">Choose payment method</h3>
+                    <div class="input-radio">
+                        <input type="radio" name="payment" id="payment-1" value="direct">
+                        <label for="payment-1">
+                            <span></span>
+                            Direct Bank Transfer
+                        </label>
+                        <div class="caption">
+                            <p>Make your payment later. You'll find bank transfer details in e-mail</p>
+                        </div>
+                    </div>
+                    <div class="input-radio">
+                        <input type="radio" name="payment" id="payment-2" value="card">
+                        <label for="payment-2">
+                            <span></span>
+                            Credit Card
+                        </label>
+                        <div class="caption">
+                            <div class="creditCardForm">
+                                <div class="payment">
+                                    <div class="form-group owner">
+                                        <label for="owner">Owner</label>
+                                        <input type="text" class="form-control" id="owner" name="cc-owner">
+                                    </div>
+                                    <div class="form-group CVV">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" name="cc-cvv">
+                                    </div>
+                                    <div class="form-group" id="card-number-field">
+                                        <label for="cardNumber">Card Number</label>
+                                        <input type="text" class="form-control" id="cardNumber"
+                                               name="cc-cardNumber">
+                                    </div>
+                                    <div class="form-group" id="expiration-date">
+                                        <label>Expiration Date</label>
+                                        <select name="cc-exp-month">
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                        <select name="cc-exp-year">
+                                            <option value="16"> 2016</option>
+                                            <option value="17"> 2017</option>
+                                            <option value="18"> 2018</option>
+                                            <option value="19"> 2019</option>
+                                            <option value="20"> 2020</option>
+                                            <option value="21"> 2021</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="credit_cards">
+                                        <img src="../static/img/visa.jpg" id="visa">
+                                        <img src="../static/img/mastercard.jpg" id="mastercard">
+                                        <img src="../static/img/amex.jpg" id="amex">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-radio">
+                            <input type="radio" name="payment" id="payment-3" value="paypal">
+                            <label for="payment-3">
+                                <span></span>
+                                Paypal System
+                            </label>
+                            <div class="caption">
+                                <div class="creditCardForm">
+                                    <label for="ppemail">Paypal email</label>
+                                    <input type="text" name="paypal-mail" id="ppemail" class="form-control">
+                                    <label for="pppass">Paypal password</label>
+                                    <input type="password" name="paypal-password" id="pppass" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-checkbox">
+                            <input type="checkbox" id="terms" name="terms">
+                            <label for="terms">
+                                <span></span>
+                                I've read and accept the <a href="#">terms & conditions</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="primary-btn order-submit">Place order</button>
+                    </div>
+            </form>
+            <!-- /Order Details -->
+        </div>
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+</body>
+</html>

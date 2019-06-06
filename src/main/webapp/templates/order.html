@@ -1,0 +1,28 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="copy">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lineItem : ${order}">
+            <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
+            <td th:text="${lineItem.getProduct().name}"></td>
+            <td th:text="${lineItem.getQuantity()}"></td>
+            <td th:text="${lineItem.getTotalPrice()}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><strong>Total</strong></td>
+            <td><strong th:inline="text">[[${totalPrice}]]</strong></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>

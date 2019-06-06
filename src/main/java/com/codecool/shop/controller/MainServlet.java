@@ -11,18 +11,24 @@ import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 public class MainServlet extends HttpServlet {
 
     private ProductDao productDataStore = ProductDaoMem.getInstance();
     private ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    private OrderDao order = OrderDaoMem.getInstance();
+    OrderDao order = OrderDaoMem.getInstance();
 
     void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template, Map<String, Object> optionalVariables) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -49,6 +55,57 @@ public class MainServlet extends HttpServlet {
             renderTemplate(req, resp, "/departmentsTemplate.html", params);
         }
     }
+    public Map<String, Object> makeMapOfOrderVariables(){
+        OrderDao order = OrderDaoMem.getInstance();
+
+        Map<String, Object> additionalVariables = new HashMap<>();
+        additionalVariables.put("order", order.getOrder().getLineItemList());
+        additionalVariables.put("totalPrice", order.getOrder().getTotalPrice());
+        return additionalVariables;
+    }
 
 
+    public void sendMail(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            final String fromEmail = "webshopcodecool@gmail.com"; //requires valid gmail id
+            final String password = "codecool666"; // correct password for gmail id
+            final String toEmail = "mw23127@gmail.com"; // can be any email id
+
+            System.out.println("TLSEmail Start");
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+            props.put("mail.smtp.port", "587"); //TLS Port
+            props.put("mail.smtp.auth", "true"); //enable authentication
+            props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+
+            //create Authenticator object to pass in Session.getInstance argument
+            Authenticator auth = new Authenticator() {
+                //override the getPasswordAuthentication method
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            };
+            Session session = Session.getInstance(props, auth);
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+            System.out.println("Mail Check 2");
+
+            message.setSubject("another message");
+            message.setText("hello world");
+
+            System.out.println("Mail Check 3");
+
+            Transport.send(message);
+            System.out.println("Mail Sent");
+        } catch (Exception ex) {
+            System.out.println("Mail fail");
+            System.out.println(ex);
+        }
+
+    }
 }
