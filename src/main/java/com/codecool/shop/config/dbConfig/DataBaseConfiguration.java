@@ -6,22 +6,22 @@ import java.sql.SQLException;
 
 public class DataBaseConfiguration {
 
-    private String dbName;
+    private String databaseName;
     private static final String DB_USER = System.getenv("DB_USER");
     private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/";
+    private static final String DATABASE = System.getenv("DB_HOST");
 
     public DataBaseConfiguration() {
-        this.dbName = System.getenv("DB_NAME");
+        this.databaseName = System.getenv("DB_NAME");
     }
 
-    public DataBaseConfiguration(String dbName){
-        this.dbName = System.getenv(dbName);
+    public DataBaseConfiguration(String databaseName){
+        this.databaseName = System.getenv(databaseName);
     }
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
-                DATABASE.concat(this.dbName),
+                DATABASE.concat(this.databaseName),
                 DB_USER,
                 DB_PASSWORD
         );
