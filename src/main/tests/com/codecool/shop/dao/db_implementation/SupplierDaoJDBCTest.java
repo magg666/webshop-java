@@ -21,17 +21,7 @@ class SupplierDaoJDBCTest {
 
     @BeforeEach
     void clearDatabase() {
-        String query = "DELETE FROM suppliers;";
-        try (Connection connection = dataBaseConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-    void setId() {
-        String query = "SELECT setval('suppliers_id_seq', 1, FALSE);";
+        String query = "ALTER SEQUENCE suppliers_id_seq RESTART WITH 1; DELETE FROM suppliers;";
         try (Connection connection = dataBaseConfiguration.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
@@ -52,7 +42,9 @@ class SupplierDaoJDBCTest {
     }
 
     @Test
-    void find() {
+    void findSupplierById() {
+        suppliers.add(supplier1);
+        Assertions.assertNotNull(suppliers.find(1));
     }
 
     @Test
