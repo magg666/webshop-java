@@ -121,23 +121,6 @@ public class ProductDaoJDBC implements ProductDao {
         return getProducts(productCategory, query);
     }
 
-    private List<Product> getProducts(BaseModel baseModel, String query) {
-        int id = baseModel.getId();
-        List<Product> productsList = null;
-        try (Connection connection = dataBaseConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Product product = createProductFromDatabase(resultSet);
-                productsList.add(product);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return productsList;
-    }
-
     @Override
     public List<Product> getByDepartments(String department) {
         String query = "SELECT p.name, p.price, p.currency, p.description, c.name cat_name, d.name dep_name, s.id sup_id, s.name sup_name " +
@@ -171,6 +154,23 @@ public class ProductDaoJDBC implements ProductDao {
                         resultSet.getString("dep_name")),
                 new Supplier(resultSet.getInt("sup_id"),
                         resultSet.getString("sup_name")));
+    }
+
+    private List<Product> getProducts(BaseModel baseModel, String query) {
+        int id = baseModel.getId();
+        List<Product> productsList = null;
+        try (Connection connection = dataBaseConfiguration.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Product product = createProductFromDatabase(resultSet);
+                productsList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productsList;
     }
 
 }
