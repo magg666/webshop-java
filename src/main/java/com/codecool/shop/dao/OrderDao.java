@@ -15,4 +15,6 @@ public interface OrderDao {
     void setPayment(String paymentMethod);
 
     void clearOrder();
+
+    int countProducts();
 }
