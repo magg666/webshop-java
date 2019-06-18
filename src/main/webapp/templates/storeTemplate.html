@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="meta.html :: copy">
+
+</head>
+<body>
+<nav th:include="header.html :: copy">
+</nav>
+<nav th:include="departments.html :: copy">
+</nav>
+
+<th:block th:if="${showCategories != null}">
+    <div class="container">
+        <div class="card-deck">
+            <div th:each="cat : ${categories}" class="card text-center">
+                <a th:href="@{/(department=${department}, cat=${cat.getId()})}"><h4 th:text="${cat.getName()}"></h4></a>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<div class="container">
+    <th:block th:each="i: ${#numbers.sequence(0, products.size()/3)}">
+        <div class="card-deck">
+
+            <div th:each="j: ${#numbers.sequence(i * 3, i * 3 + 2)}" th:if="${products.size() gt j}" class="card">
+                <div class="card-body text-center">
+                    <h4 th:text="${products.get(j).getName()}"></h4>
+                    <h5 th:inline="text">Price: [[${products.get(j).getPrice()}]]</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"
+                        th:text="${products.get(j).getProductCategory().getName()}"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${products.get(j).getSupplier().getName()}"></h6>
+                    <p class="card-text"><img style="width: 150px; height: 200px" src=""
+                                              th:attr="src='/static/img/product_' + ${products.get(j).getId} + '.jpg'"
+                                              alt=""></p>
+                    <form action="/" method="post">
+                        <button class="btn btn-outline-danger card-footer" type="submit" name="add"
+                                th:value="${products.get(j).getId()}">Add to cart
+                        </button>
+                    </form>
+                </div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>
