@@ -8,6 +8,7 @@ import com.codecool.shop.model.Supplier;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,23 +39,23 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public Product find(int id) {
-//        String query = "SELECT * FROM products WHERE id = ?";
-//        Product product = null;
-//        try (Connection connection = dataBaseConfiguration.getConnection();
-//             PreparedStatement statement = connection.prepareStatement(query)) {
-//            statement.setInt(1, id);
-//            ResultSet resultSet = statement.executeQuery();
-//            if (resultSet.next()) {
+        String query = "SELECT * FROM products WHERE id = ?";
+        Product product = null;
+        try (Connection connection = dataBaseConfiguration.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
 //                product = new Product(resultSet.getString("name"), resultSet.getFloat("price"), resultSet.getString("currency"), resultSet.getString("description"));
-//            } else {
-//                return null;
-//            }
-//
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-        return null;
+            } else {
+                return null;
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 
     @Override
@@ -90,4 +91,19 @@ public class ProductDaoJDBC implements ProductDao {
     public List<Product> getByDepartments(String department) {
         return null;
     }
+
+//    private Product createProductFromDatabase(ResultSet resultSet) throws SQLException {
+//        return new Product(
+//                resultSet.getInt("id"),
+//                resultSet.getString("name"),
+//                resultSet.getDouble("price"),
+//                resultSet.getString("currency"),
+//                resultSet.getString("description"),
+//                new ProductCategory(resultSet.getInt("cat_id"),
+//                        resultSet.getString("cat_name"),
+//                        resultSet.getString("dep_name")),
+//                new Supplier(resultSet.getInt("sup_id"),
+//                        resultSet.getString("sup_name")));
+//    }
+
 }
