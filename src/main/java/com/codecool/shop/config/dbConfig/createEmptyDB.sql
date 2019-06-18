@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS statutes
+CREATE TABLE IF NOT EXISTS statuses
 (
     id   serial not null,
     name text   not null,
-    constraint statutes_pk primary key (id)
+    constraint statuses_pk primary key (id)
 );
 
 CREATE TABLE IF NOT EXISTS payments
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS orders
     constraint orders_pk primary key (id),
     constraint fk_orders_customer_id foreign key (customer_id) references customers,
     constraint fk_orders_payment_id foreign key (payment_id) references payments,
-    constraint fk_orders_status_id foreign key (status_id) references statutes
+    constraint fk_orders_status_id foreign key (status_id) references statuses
 );
 
 CREATE TABLE IF NOT EXISTS line_items
