@@ -10,6 +10,14 @@ public class Product extends BaseModel {
     private transient Supplier supplier;
 
 
+    public Product(int id, String name, String description, float defaultPrice, String  currencyString, ProductCategory productCategory, Supplier supplier) {
+        super(id, name, description);
+        this.setPrice(defaultPrice, currencyString);
+        this.productCategory = productCategory;
+        this.supplier = supplier;
+    }
+
+
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);

@@ -12,11 +12,6 @@ public class BaseModel {
     BaseModel() {
     }
 
-    public BaseModel(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     BaseModel(String name) {
         this.name = name;
     }
@@ -26,9 +21,15 @@ public class BaseModel {
         this.description = description;
     }
 
-    public BaseModel(int id, String name) {
+    BaseModel(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public BaseModel(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
     public int getId() {

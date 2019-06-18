@@ -12,7 +12,7 @@ public class ProductCategory extends BaseModel {
         this.department = department;
     }
 
-    public ProductCategory(String name, String department, String description) {
+    public ProductCategory(String name, String department) {
         super(name);
         this.department = department;
         this.products = new ArrayList<>();
