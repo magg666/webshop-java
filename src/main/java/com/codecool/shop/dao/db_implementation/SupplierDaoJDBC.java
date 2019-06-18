@@ -17,6 +17,10 @@ public class SupplierDaoJDBC implements SupplierDao {
     public SupplierDaoJDBC() {
     }
 
+    public SupplierDaoJDBC(DataBaseConfiguration dataBaseConfiguration) {
+        this.dataBaseConfiguration = dataBaseConfiguration;
+    }
+
     @Override
     public void add(Supplier supplier) {
         String query = "INSERT INTO suppliers (name) VALUES (?)";
