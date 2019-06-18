@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
-    private DataBaseConfiguration dataBaseConfiguration;
+    private DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration();
 
     public SupplierDaoJDBC() {
     }

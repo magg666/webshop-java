@@ -3,7 +3,6 @@ package com.codecool.shop.dao.db_implementation;
 import com.codecool.shop.config.dbConfig.DataBaseConfiguration;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
-import com.sun.org.apache.xerces.internal.xs.StringList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +13,7 @@ import java.util.List;
 
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
-    private DataBaseConfiguration dataBaseConfiguration;
+    private DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration();
 
     public ProductCategoryDaoJDBC(){
 
