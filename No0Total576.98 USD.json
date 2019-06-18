@@ -1,0 +1,44 @@
+{
+  "lineItemList": [
+    {
+      "quantity": 1,
+      "product": {
+        "id": 3,
+        "name": "Amazon Fire HD 8"
+      },
+      "id": 2,
+      "name": null
+    },
+    {
+      "quantity": 1,
+      "product": {
+        "id": 2,
+        "name": "Lenovo IdeaPad Mix 700"
+      },
+      "id": 3,
+      "name": null
+    },
+    {
+      "quantity": 1,
+      "product": {
+        "id": 6,
+        "name": "Ghosts of Gotham"
+      },
+      "id": 4,
+      "name": null
+    },
+    {
+      "quantity": 1,
+      "product": {
+        "id": 8,
+        "name": "Fairytale"
+      },
+      "id": 5,
+      "name": null
+    }
+  ],
+  "customerId": 1,
+  "paymentMethod": "direct",
+  "id": 0,
+  "name": "Order"
+}
