@@ -38,7 +38,7 @@
                             <a href="/cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Your Cart</span>
-                                <div class="qty" th:text="${itemsCounter}"></div>
+                                <div class="qty" th:text="${session.order.countProducts()}"></div>
                             </a>
                         </div>
                         <!-- /Cart -->
