@@ -61,14 +61,24 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public void setPayment(String paymentMethod){
-        if(paymentMethod != null){
+    public void setPayment(String paymentMethod) {
+        if (paymentMethod != null) {
             getOrder().setPaymentMethod(paymentMethod);
         }
     }
 
     @Override
-    public void clearOrder(){
+    public void clearOrder() {
         order = new Order();
+    }
+
+    @Override
+    public int countProducts() {
+        int sumOfProducts = 0;
+        for (LineItem lineItem : getOrder().getLineItemList()) {
+            sumOfProducts += lineItem.getQuantity();
+        }
+        ;
+        return sumOfProducts;
     }
 }
