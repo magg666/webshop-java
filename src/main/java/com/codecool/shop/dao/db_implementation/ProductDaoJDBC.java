@@ -21,7 +21,7 @@ public class ProductDaoJDBC implements ProductDao {
     public void add(Product product) {
         String query = "INSERT INTO products (name, description, price, currency, category_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = dataBaseConfiguration.getConnection();
-        PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setDouble(3, product.getDefaultPrice());
@@ -38,11 +38,36 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public Product find(int id) {
+//        String query = "SELECT * FROM products WHERE id = ?";
+//        Product product = null;
+//        try (Connection connection = dataBaseConfiguration.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(query)) {
+//            statement.setInt(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                product = new Product(resultSet.getString("name"), resultSet.getFloat("price"), resultSet.getString("currency"), resultSet.getString("description"));
+//            } else {
+//                return null;
+//            }
+//
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 
     @Override
     public void remove(int id) {
+        String query = "DELETE FROM products WHERE id = ?";
+        try (Connection connection = dataBaseConfiguration.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
