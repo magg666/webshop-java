@@ -20,7 +20,7 @@ public class OrderManager {
      * @param order - current order
      */
     public static void removeFromOrderByTrashButton(String productIdToDecreaseByOne, OrderDao order){
-        if (!Validator.isNumber(productIdToDecreaseByOne)) {
+        if (Validator.isNotNumber(productIdToDecreaseByOne)) {
             throw new IllegalArgumentException(Message.WRONG_TYPE.getMessage());
         }
         order.removeProductById(Integer.parseInt(productIdToDecreaseByOne));
@@ -35,7 +35,7 @@ public class OrderManager {
      * @param order - current order
      */
     public static void changeProductQuantity(String productId, String newQuantity, OrderDao order){
-        if (!Validator.isNumber(newQuantity) || newQuantity.length() > 4) {
+        if (Validator.isNotNumber(newQuantity) || newQuantity.length() > 4) {
             throw new IllegalArgumentException(Message.WRONG_TYPE.getMessage());
         }
         order.changeQuantityOfProduct(Integer.parseInt(productId), Integer.parseInt(newQuantity));
