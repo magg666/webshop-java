@@ -23,4 +23,10 @@ public class SessionManager {
         }
     }
 
+    public static OrderDao getOrderFromSession(HttpServletRequest req){
+        HttpSession session = req.getSession();
+        return (OrderDao) session.getAttribute("order");
+
+    }
+
 }

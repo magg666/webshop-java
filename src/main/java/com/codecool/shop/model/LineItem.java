@@ -3,12 +3,12 @@ package com.codecool.shop.model;
 public class LineItem extends BaseModel {
     private int quantity;
     private Product product;
-    private transient float priceOfItems;
+    private transient float summaryPrice;
 
     public LineItem(Product product) {
         this.quantity = 1;
         this.product = product;
-        this.priceOfItems = this.product.getDefaultPrice();
+        this.summaryPrice = this.product.getDefaultPrice();
     }
 
     public int getQuantity() {
@@ -19,14 +19,35 @@ public class LineItem extends BaseModel {
         return product;
     }
 
-    public float getPriceOfItems() {
-        return priceOfItems;
+    public float getSummaryPrice() {
+        return summaryPrice;
     }
 
     public String getTotalPrice() {
-        return String.valueOf(this.priceOfItems) + " " + this.product.getDefaultCurrency().toString();
+        return String.format("%.2f", this.summaryPrice) + " " + this.product.getDefaultCurrency().toString();
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
+    public void increaseQuantityByOne() {
+        this.quantity += 1;
+    }
+
+    public void decreaseQuantityByOne() {
+        this.quantity -= 1;
+    }
+
+    public void setSummaryPrice() {
+        int newQuantity = getQuantity();
+        this.summaryPrice = newQuantity * this.product.getDefaultPrice();
+    }
+
+    public int getProductId(){
+        return getProduct().getId();
+    }
+
+    // to remove
     public void increaseQuantity() {
         this.quantity = this.quantity + 1;
     }
@@ -37,10 +58,8 @@ public class LineItem extends BaseModel {
 
     public void changePriceOfItem() {
         int newQuantity = getQuantity();
-        this.priceOfItems = newQuantity * this.product.getDefaultPrice();
+        this.summaryPrice = newQuantity * this.product.getDefaultPrice();
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+
 }

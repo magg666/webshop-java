@@ -6,35 +6,70 @@ import java.util.List;
 public class Order extends BaseModel {
 
     private List<LineItem> lineItemList;
-    private transient float totalPrice;
     private int customerId;
     private String paymentMethod;
+    private transient float totalPrice;
+    private String status;
+
+    public Order() {
+        super("Order");
+        this.lineItemList = new ArrayList<>();
+        this.customerId = -1;
+        this.totalPrice = 0;
+
+    }
+
+    public Order(int id, String date, int customerId, String paymentMethod, float totalPrice, String status) {
+        super(id, date);
+        this.customerId = customerId;
+        this.paymentMethod = paymentMethod;
+        this.totalPrice = totalPrice;
+        this.status = status;
+    }
+
+    // Getters
+    public List<LineItem> getLineItemList() {
+        return lineItemList;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
 
     public String getPaymentMethod() {
         return paymentMethod;
+    }
+
+    public float getTotalPrice() {
+        return defineTotalPrice();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public Order() {
-        super("Order", "Data");
-        this.lineItemList = new ArrayList<>();
-        this.totalPrice = 0;
-        this.customerId = -1;
+    private float defineTotalPrice() {
+        float sum = 0;
+        for (LineItem item : lineItemList) {
+            sum += item.getSummaryPrice();
+        }
+        return sum;
     }
 
-    public List<LineItem> getLineItemList() {
-        return lineItemList;
-    }
-
-    public String getTotalPrice() {
+    public String getFormattedPrice() {
         defineTotalPrice();
-        return totalPrice + " " + "USD";
+        return String.format("%.2f", this.totalPrice) + " " + "USD";
     }
 
-    public LineItem find(int productId) {
+    public LineItem findByProductId(int productId) {
         for (LineItem item : lineItemList) {
             if (item.getProduct().getId() == productId) {
                 return item;
@@ -43,6 +78,17 @@ public class Order extends BaseModel {
         return null;
     }
 
+    public void addLineItem(LineItem lineItem) {
+        lineItem.setId(this.lineItemList.size() + 1);
+        this.lineItemList.add(lineItem);
+    }
+
+    public void remove(LineItem lineItem) {
+        lineItemList.remove(lineItem);
+    }
+
+
+    // to delete
     public LineItem findById(int id) {
         for (LineItem item : lineItemList) {
             if (item.getId() == id) {
@@ -50,15 +96,6 @@ public class Order extends BaseModel {
             }
         }
         return null;
-    }
-
-    public void add(LineItem lineItem) {
-        lineItem.setId(this.lineItemList.size() + 1);
-        this.lineItemList.add(lineItem);
-    }
-
-    public void remove(LineItem lineItem) {
-        lineItemList.remove(lineItem);
     }
 
     public int getOrderedItemsQuantity() {
@@ -69,19 +106,5 @@ public class Order extends BaseModel {
         return counter;
     }
 
-    private void defineTotalPrice() {
-        float sumOfItemsPrices = 0;
-        for (LineItem item : lineItemList) {
-            sumOfItemsPrices += item.getPriceOfItems();
-        }
-        this.totalPrice = sumOfItemsPrices;
-    }
 
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
 }

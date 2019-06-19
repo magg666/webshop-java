@@ -6,6 +6,8 @@ import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
+import java.util.List;
+
 public class OrderDaoMem implements OrderDao {
 
     private Order order = new Order();
@@ -29,6 +31,37 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
+    public void add(Product product) {
+        LineItem lineItem = getOrder().findByProductId(product.getId());
+        if (lineItem == null) {
+            getOrder().addLineItem(new LineItem(product));
+        } else {
+            lineItem.increaseQuantityByOne();
+            lineItem.setSummaryPrice();
+        }
+    }
+
+
+    @Override
+    public void removeProductById(int productId) {
+        LineItem lineItemWithProduct = getOrder().findByProductId(productId);
+        if (lineItemWithProduct != null && lineItemWithProduct.getQuantity() > 1) {
+            lineItemWithProduct.decreaseQuantityByOne();
+            lineItemWithProduct.setSummaryPrice();
+        } else if (lineItemWithProduct != null) {
+            getLineItems().remove(lineItemWithProduct);
+        }
+    }
+
+    @Override
+    public void changeQuantityOfProduct(int productId, int newQuantity) {
+        LineItem lineItemWithProduct = getOrder().findByProductId(productId);
+        lineItemWithProduct.setQuantity(newQuantity);
+        lineItemWithProduct.setSummaryPrice();
+    }
+
+    @Override
+    // by lineItemId
     public void removeById(int id) {
         LineItem lineItem = order.findById(id);
         if (lineItem != null && lineItem.getQuantity() > 1) {
@@ -45,13 +78,12 @@ public class OrderDaoMem implements OrderDao {
     public void addById(int productId) {
         ProductDao productDao = ProductDaoMem.getInstance();
         Product product = productDao.find(productId);
-        LineItem lineItem = order.find(productId);
+        LineItem lineItem = order.findByProductId(productId);
         if (lineItem == null) {
-            order.add(new LineItem(product));
+            order.addLineItem(new LineItem(product));
         } else {
             lineItem.increaseQuantity();
             lineItem.changePriceOfItem();
-
         }
     }
 
@@ -74,11 +106,19 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public int countProducts() {
-        int sumOfProducts = 0;
+        int sum = 0;
         for (LineItem lineItem : getOrder().getLineItemList()) {
-            sumOfProducts += lineItem.getQuantity();
-        }
-        ;
-        return sumOfProducts;
+            sum += lineItem.getQuantity();
+        }return sum;
+    }
+
+    @Override
+    public List<LineItem> getLineItems() {
+        return getOrder().getLineItemList();
+    }
+
+    @Override
+    public String getFormattedPrice() {
+        return getOrder().getFormattedPrice();
     }
 }
