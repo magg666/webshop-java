@@ -11,12 +11,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 class SupplierDaoJDBCTest {
     private DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration("TEST_DATABASE");
     private SupplierDao suppliers = new SupplierDaoJDBC(dataBaseConfiguration);
-    Supplier supplier1 = new Supplier("Hewlett-Packard");
-    Supplier supplier2 = new Supplier("Asus");
-    Supplier supplier3 = new Supplier("Dell");
+    private Supplier supplier1 = new Supplier("Hewlett-Packard");
+    private Supplier supplier2 = new Supplier("Asus");
+    private Supplier supplier3 = new Supplier("Dell");
 
 
     @BeforeEach
@@ -33,12 +35,17 @@ class SupplierDaoJDBCTest {
 
 
     @Test
-    void addSuppliersAndCount() {
+    void addSuppliersAndCountGoodData() {
         suppliers.add(supplier1);
         Assertions.assertEquals(1, suppliers.getAll().size());
         suppliers.add(supplier2);
         suppliers.add(supplier3);
         Assertions.assertEquals(3, suppliers.getAll().size());
+    }
+
+    @Test
+    void addSuppliersAndCountWrongData() {
+        fail("this test has to be implemented");
     }
 
     @Test
