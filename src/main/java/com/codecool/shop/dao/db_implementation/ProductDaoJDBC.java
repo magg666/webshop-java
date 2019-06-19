@@ -20,6 +20,10 @@ public class ProductDaoJDBC implements ProductDao {
     public ProductDaoJDBC() {
     }
 
+    ProductDaoJDBC(DataBaseConfiguration dataBaseConfiguration) {
+        this.dataBaseConfiguration = dataBaseConfiguration;
+    }
+
     @Override
     public void add(Product product) {
         String query = "INSERT INTO products (name, description, price, currency, category_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";

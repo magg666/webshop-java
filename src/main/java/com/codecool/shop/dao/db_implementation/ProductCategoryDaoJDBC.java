@@ -18,6 +18,11 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     public ProductCategoryDaoJDBC(){
 
     }
+
+    ProductCategoryDaoJDBC(DataBaseConfiguration dataBaseConfiguration) {
+        this.dataBaseConfiguration = dataBaseConfiguration;
+    }
+
     @Override
     public void add(ProductCategory category) {
         String query ="INSERT INTO categories(name, department_id) " +
@@ -49,10 +54,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             statement.setInt(1, id);
             ResultSet resultSet= statement.executeQuery();
             if(resultSet.next()){
-                ProductCategory productCategory = new ProductCategory(resultSet.getInt("id"), resultSet.getString("category_name"),resultSet.getString("department_name"));
-                return productCategory;
-            }else{
-                return null;
+                return new ProductCategory(resultSet.getInt("id"), resultSet.getString("category_name"),resultSet.getString("department_name"));
             }
 
         } catch (SQLException e) {
@@ -140,9 +142,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
              PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
-                String department = new String(resultSet.getString("name"));
-                resultList.add(department);
-
+                resultList.add(new String(resultSet.getString("name")));
             }
 
         } catch (SQLException e) {
