@@ -15,8 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.fail;
+import java.util.List;
 
 class ProductDaoJDBCTest {
     private DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration("TEST_DATABASE");
@@ -53,7 +52,7 @@ class ProductDaoJDBCTest {
     }
 
     @Test
-    void add() {
+    void addProduct() {
         Assertions.assertEquals(0, products.getAll().size());
         products.add(product);
         Assertions.assertEquals(1, products.getAll().size());
@@ -61,31 +60,51 @@ class ProductDaoJDBCTest {
 
     @Test
     void find() {
-        fail("this test has to be implemented");
+        Assertions.assertEquals(0, products.getAll().size());
+        products.add(product);
+        Assertions.assertNotNull(products.find(1));
     }
 
     @Test
     void remove() {
-        fail("this test has to be implemented");
+        Assertions.assertEquals(0, products.getAll().size());
+        products.add(product);
+        products.remove(1);
+        Assertions.assertEquals(0, products.getAll().size());
     }
 
     @Test
     void getAll() {
-        fail("this test has to be implemented");
+        Assertions.assertEquals(0, products.getAll().size());
+        products.add(product);
+        Assertions.assertNotNull(products.getAll());
     }
 
     @Test
-    void getBy() {
-        fail("this test has to be implemented");
+    void getBySupplier() {
+        products.add(product);
+        List<Product> productsBySupplier = products.getBy(suppliers.find(1));
+        Supplier addedProductSupplier = products.find(1).getSupplier();
+        Supplier testedProductSupplier = productsBySupplier.get(0).getSupplier();
+        Assertions.assertEquals(addedProductSupplier.getName(), testedProductSupplier.getName());
+
     }
 
     @Test
-    void getBy1() {
-        fail("this test has to be implemented");
+    void getByProductCategory() {
+        products.add(product);
+        List<Product> productsByCategory = products.getBy(categories.find(1));
+        ProductCategory addedProductCategory = products.find(1).getProductCategory();
+        ProductCategory testedProductCategory = productsByCategory.get(0).getProductCategory();
+        Assertions.assertEquals(addedProductCategory.getName(), testedProductCategory.getName());
     }
 
     @Test
     void getByDepartments() {
-        fail("this test has to be implemented");
+        products.add(product);
+        List<Product> productsByDepartments = products.getByDepartments("Electronics");
+        ProductCategory addedProductCategory = products.find(1).getProductCategory();
+        ProductCategory testedProductCategory = productsByDepartments.get(0).getProductCategory();
+        Assertions.assertEquals(addedProductCategory.getDepartment(), testedProductCategory.getDepartment());
     }
 }
