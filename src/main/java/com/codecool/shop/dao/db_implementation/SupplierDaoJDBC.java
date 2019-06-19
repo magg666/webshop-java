@@ -3,6 +3,7 @@ package com.codecool.shop.dao.db_implementation;
 import com.codecool.shop.config.dbConfig.DataBaseConfiguration;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.util.DataBaseUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,62 +25,86 @@ public class SupplierDaoJDBC implements SupplierDao {
     @Override
     public void add(Supplier supplier) {
         String query = "INSERT INTO suppliers (name) VALUES (?)";
-        try (Connection connection = dataBaseConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, supplier.getName());
-            statement.executeUpdate();
+        DataBaseUtils.withStatementNoReturn(dataBaseConfiguration, query,
+                preparedStatement -> {
+            try {
+                preparedStatement.setString(1, supplier.getName());
+                preparedStatement.executeUpdate();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+                }
+                );
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+//        try (Connection connection = dataBaseConfiguration.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(query)) {
+//            statement.setString(1, supplier.getName());
+//            statement.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public Supplier find(int id) {
-//        DatabaseUtils.withStatement(
-//                dataBaseConfiguration,
-//                "SELECT * FROM suppliers WHERE id = ?",
-//                (statement) -> {
-//                    statement.setInt(1, id);
-//                    ResultSet resultSet = statement.executeQuery();
-//                    if (resultSet.next()) {
-//                        return new Supplier(resultSet.getInt("id"),
-//                                resultSet.getString("name"));
-//
-//                    }
-//
-//                }
-//        )
-
         String query = "SELECT * FROM suppliers WHERE id = ?";
-        try (Connection connection = dataBaseConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return new Supplier(resultSet.getInt("id"),
+        return (Supplier) DataBaseUtils.withStatement(dataBaseConfiguration, query,
+                preparedStatement -> {
+                    try {
+                        preparedStatement.setInt(1, id);
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        if (resultSet.next()) {
+                            return new Supplier(resultSet.getInt("id"),
                         resultSet.getString("name"));
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }return null
+                    ;
+                });
 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+
+//        try (Connection connection = dataBaseConfiguration.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(query)) {
+//
+//            statement.setInt(1, id);
+//            ResultSet resultSet = statement.executeQuery();
+//            if (resultSet.next()) {
+//                return new Supplier(resultSet.getInt("id"),
+//                        resultSet.getString("name"));
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 
 
     @Override
     public void remove(int id) {
         String query = "DELETE FROM suppliers WHERE id = ?";
-        try (Connection connection = dataBaseConfiguration.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, id);
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        DataBaseUtils.withStatementNoReturn(dataBaseConfiguration, query,
+                preparedStatement -> {
+            try {
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+                }
+                );
+//        String query = "DELETE FROM suppliers WHERE id = ?";
+//        try (Connection connection = dataBaseConfiguration.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(query)) {
+//            statement.setInt(1, id);
+//            statement.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
