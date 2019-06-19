@@ -11,8 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 class SupplierDaoJDBCTest {
     private DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration("TEST_DATABASE");
     private SupplierDao suppliers = new SupplierDaoJDBC(dataBaseConfiguration);
@@ -43,22 +41,54 @@ class SupplierDaoJDBCTest {
         Assertions.assertEquals(3, suppliers.getAll().size());
     }
 
-    @Test
-    void addSuppliersAndCountWrongData() {
-        fail("this test has to be implemented");
-    }
 
     @Test
-    void findSupplierById() {
+    void findSupplierById_NotNull() {
         suppliers.add(supplier1);
         Assertions.assertNotNull(suppliers.find(1));
+
     }
 
     @Test
-    void remove() {
+    void findSupplierById_CorrectValue(){
+        suppliers.add(supplier1);
+        suppliers.add(supplier2);
+        suppliers.add(supplier3);
+        Assertions.assertEquals(suppliers.find(3).getName(), "Dell");
     }
 
     @Test
-    void getAll() {
+    void removeAndCount() {
+        Assertions.assertEquals(0, suppliers.getAll().size());
+        suppliers.add(supplier1);
+        suppliers.add(supplier2);
+        Assertions.assertEquals(2, suppliers.getAll().size());
+        suppliers.remove(suppliers.getAll().get(0).getId());
+        Assertions.assertEquals(1, suppliers.getAll().size());
+
+    }
+
+    @Test
+    void removeIncorrect(){
+        suppliers.add(supplier1);
+        suppliers.add(supplier2);
+        suppliers.remove(7);
+        Assertions.assertEquals(2, suppliers.getAll().size());
+    }
+
+    @Test
+    void getAllCheckSize() {
+        suppliers.add(supplier1);
+        suppliers.add(supplier2);
+        suppliers.add(supplier3);
+        Assertions.assertEquals(3, suppliers.getAll().size());
+    }
+
+    @Test
+    void getAllCheckNotNull(){
+        suppliers.add(supplier1);
+        suppliers.add(supplier2);
+        suppliers.add(supplier3);
+        suppliers.getAll().forEach(Assertions::assertNotNull);
     }
 }
