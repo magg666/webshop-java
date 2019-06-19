@@ -34,7 +34,7 @@ public class ConfirmationServlet extends MainServlet {
 
         try {
             String orderId = String.valueOf(order.getOrder().getId());
-            String orderPrice = order.getOrder().getTotalPrice();
+            String orderPrice = order.getOrder().getFormattedPrice();
             String fileName = "No" + orderId + "Total" + orderPrice + ".json";
             FileWriter writer = new FileWriter(fileName);
             Gson gson = new GsonBuilder()

@@ -6,6 +6,7 @@ import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.db_implementation.ProductCategoryDaoJDBC;
 import com.codecool.shop.dao.db_implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.service.PageCoordinator;
 import com.codecool.shop.service.SessionManager;
 
@@ -16,6 +17,8 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends MainServlet {
+    private String uri; // full path with current parameters
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -25,11 +28,13 @@ public class ProductController extends MainServlet {
         OrderDao currentOrder = OrderDaoMem.getInstance();
         SessionManager.setOrderInSession(req, currentOrder);
 
-        if(PageCoordinator.hasUserWantedToLookAround(req)){
+        if (PageCoordinator.hasUserWantedToLookAround(req)) {
             PageCoordinator.navigateAmongProducts(req, resp, products, categories);
         } else {
             PageCoordinator.goToRequestedPage(req, resp, "/storeTemplate.html", products, categories);
         }
+
+        uri = req.getRequestURL() + "?" + req.getQueryString();
 //
 //        // define custom variables
 //        Map<String, Object> additionalVariables = new HashMap<>();
@@ -52,14 +57,27 @@ public class ProductController extends MainServlet {
 //            composeProductsDivision(req, resp, additionalVariables, department, productsCategory);
 //        }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String productId = req.getParameter("add");
+//
+//        String productId = req.getParameter("addLineItem");
+//
+//        // adding to cart
+//        if (productId != null) {
+//            order.addById(Integer.parseInt(productId));
+//        }
+//        resp.sendRedirect("/");
+//    }
 
-        // adding to cart
+        OrderDao order = SessionManager.getOrderFromSession(req);
+        String productId = req.getParameter("add");
+        ProductDao allProducts = new ProductDaoJDBC();
+
         if (productId != null) {
-            order.addById(Integer.parseInt(productId));
+            Product product = allProducts.find(Integer.parseInt(productId));
+            order.add(product);
         }
-        resp.sendRedirect("/");
+        resp.sendRedirect(uri);
     }
 }
