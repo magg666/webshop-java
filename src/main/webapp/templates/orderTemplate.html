@@ -25,35 +25,32 @@
                     </thead>
 
                     <tbody>
-                    <tr th:each="lineItem : ${order}">
+                    <tr th:each="lineItem : ${session.order.getLineItems()}">
                         <td><img src="https://via.placeholder.com/50" alt="product image"/></td>
-                        <td th:text="${lineItem.getProduct().name}"></td>
+                        <td th:text="${lineItem.getProduct().getName()}"></td>
                         <td>
                             <form action="/cart" method="post">
                                 <input type="text" id="newvalue" name="quantity" th:value="${lineItem.getQuantity()}"/>
-                                <input type="hidden" name="lineItemId" th:value="${lineItem.getId()}"/>
+                                <input type="hidden" name="productId" th:value="${lineItem.getProductId()}"/>
                                 <button type="submit">Change</button>
                             </form>
                         </td>
                         <td th:text="${lineItem.getTotalPrice()}"></td>
                         <td>
                             <form action="/cart" method="post">
-                                <button class="btn btn-outline-danger card-footer" type="submit" name="remove"
-                                        th:value="${lineItem.getId()}" th:inline="text"><i
+                                <button class="btn btn-outline-danger card-footer" type="submit" name="removeOne"
+                                        th:value="${lineItem.getProductId()}" th:inline="text"><i
                                         class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </td>
                     </tr>
-                    <tr th:if="${message!= null}">
-                        <td th:text="${message}"></td>
-                    </tr>
 
-                    <tr th:unless="${message != null}">
+                    <tr>
                         <td></td>
                         <td></td>
                         <td><strong>Total</strong></td>
-                        <td><strong th:inline="text">[[${totalPrice}]]</strong></td>
+                        <td><strong th:text="${session.order.getFormattedPrice()}"></strong></td>
                         <td></td>
                     </tr>
                     </tbody>
@@ -75,6 +72,16 @@
             </div>
         </div>
     </div>
+    <div th:if="${session.customer != null}" class="container text-center">
+        <form action="/cart" method="post">
+            <button class="primary-btn order-submit" name="saveOrder" value="1">Save your cart</button>
+        </form>
+    </div>
+    <th:block th:if="${session.messageForUser}">
+        <div class="alert alert-warning" role="alert">
+            <h6 class="text-muted" th:text="${session.messageForUser.toUpperCase()}"></h6>
+        </div>
+    </th:block>
 </div>
 
 
