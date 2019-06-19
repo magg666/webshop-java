@@ -36,6 +36,21 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
+//        DatabaseUtils.withStatement(
+//                dataBaseConfiguration,
+//                "SELECT * FROM suppliers WHERE id = ?",
+//                (statement) -> {
+//                    statement.setInt(1, id);
+//                    ResultSet resultSet = statement.executeQuery();
+//                    if (resultSet.next()) {
+//                        return new Supplier(resultSet.getInt("id"),
+//                                resultSet.getString("name"));
+//
+//                    }
+//
+//                }
+//        )
+
         String query = "SELECT * FROM suppliers WHERE id = ?";
         try (Connection connection = dataBaseConfiguration.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
