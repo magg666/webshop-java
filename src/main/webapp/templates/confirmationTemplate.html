@@ -4,33 +4,39 @@
 
 </head>
 <body>
-<nav th:include="header.html :: copy">
-</nav>
+<!--<nav th:include="header.html :: copy">-->
+<!--</nav>-->
 <nav th:include="departments.html :: copy">
 </nav>
 
 <div class="section">
     <div class="container">
         <div class="text-center">
-            <h4 class="title" th:inline="text">Hi [[${name}]],</h4>
+            <!--<h4 class="title" th:inline="${session.customer.getName()}"></h4>-->
             <h4 class="title">Your order is confirmed. Below are things you ordered:</h4>
         </div>
         <div th:include="order.html :: copy"></div>
         <div>
             <h4>Your items will be shipped immediately to:</h4>
         </div>
-        <div th:each="element : ${address}">
-            <h5 th:text="${element}"></h5>
+        <div>
+            <!--<h5 th:text="${session.customer.getShippingAddress()}"></h5>-->
+            <!--<h5 th:text="${session.customer.getShippingCity()}"></h5>-->
+            <!--<h5 th:text="${session.customer.getShippingCountry()}"></h5>-->
+            <!--<h5 th:text="${session.customer.getShippingZipCode()}"></h5>-->
         </div>
         <br>
         <div>
-            <h4 th:inline="text">We sent you an email to the: [[${email}]]</h4>
+            <!--<h4 th:inline="${session.customer.getEmail()}">We sent you an email to the: </h4>-->
             <br>
             <h5>Thank you!</h5>
         </div>
         <br>
         <div >
             <a href="/" style="float:left" class="primary-btn order-submit">Go to main page</a>
+        </div>
+        <div >
+            <a href="/user-page" style="float:left" class="primary-btn order-submit">Go to your page</a>
         </div>
         <span>
             <a href="#" style="float:right" class="primary-btn order-submit">Unsubscribe</a>

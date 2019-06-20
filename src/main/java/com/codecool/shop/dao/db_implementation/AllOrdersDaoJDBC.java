@@ -29,18 +29,17 @@ public class AllOrdersDaoJDBC implements AllOrdersDao {
     // LINE ITEMS:
     private void addLineItem(Order order, LineItem lineItem) {
         String query = "INSERT INTO line_items(product_id, quantity, orders_id) VALUES (?, ?, ?)";
-        withStatement(dataBaseConfiguration, query,
-                preparedStatement -> {
-                    try {
-                        preparedStatement.setInt(1, lineItem.getProductId());
-                        preparedStatement.setInt(1, lineItem.getQuantity());
-                        preparedStatement.setInt(1, order.getId());
-                        preparedStatement.executeUpdate();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                });
+        try (Connection connection = dataBaseConfiguration.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, lineItem.getProductId());
+            statement.setInt(1, lineItem.getQuantity());
+            statement.setInt(1, order.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     private void addLineItemList(Order order, List<LineItem> lineItemList) {
         for (LineItem lineItem : lineItemList) {
@@ -202,6 +201,7 @@ public class AllOrdersDaoJDBC implements AllOrdersDao {
                     }
                 });
     }
+
     private Order createOrderFromDatabase(ResultSet resultSet) throws SQLException {
         return new Order(resultSet.getInt("id"),
                 resultSet.getString("data"),
