@@ -16,9 +16,6 @@ public interface OrderDao {
 
     void changeQuantityOfProduct(int productId, int newQuantity);
 
-    void removeById(int id); // to remove
-
-    void addById(int id); // to remove
 
     void addCustomerId(int customerId); // to remove
 

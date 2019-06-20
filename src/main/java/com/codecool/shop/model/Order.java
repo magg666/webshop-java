@@ -65,7 +65,7 @@ public class Order extends BaseModel {
     }
 
     public String getFormattedPrice() {
-        defineTotalPrice();
+        this.totalPrice = defineTotalPrice();
         return String.format("%.2f", this.totalPrice) + " " + "USD";
     }
 

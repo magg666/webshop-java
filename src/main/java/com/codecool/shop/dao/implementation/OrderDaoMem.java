@@ -1,7 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
@@ -58,33 +57,6 @@ public class OrderDaoMem implements OrderDao {
         LineItem lineItemWithProduct = getOrder().findByProductId(productId);
         lineItemWithProduct.setQuantity(newQuantity);
         lineItemWithProduct.setSummaryPrice();
-    }
-
-    @Override
-    // by lineItemId
-    public void removeById(int id) {
-        LineItem lineItem = order.findById(id);
-        if (lineItem != null && lineItem.getQuantity() > 1) {
-            lineItem.decreaseQuantity();
-            lineItem.changePriceOfItem();
-        } else if (lineItem != null) {
-            order.remove(lineItem);
-        } else {
-            System.out.println("You are terrible, terrible person...");
-        }
-    }
-
-    @Override
-    public void addById(int productId) {
-        ProductDao productDao = ProductDaoMem.getInstance();
-        Product product = productDao.find(productId);
-        LineItem lineItem = order.findByProductId(productId);
-        if (lineItem == null) {
-            order.addLineItem(new LineItem(product));
-        } else {
-            lineItem.increaseQuantity();
-            lineItem.changePriceOfItem();
-        }
     }
 
     @Override
