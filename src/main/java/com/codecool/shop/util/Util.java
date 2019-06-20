@@ -1,7 +1,19 @@
-package com.codecool.shop.model;
+package com.codecool.shop.util;
+
+import com.codecool.shop.service.SessionManager;
+
+import javax.servlet.http.HttpServletRequest;
+
 public class Util {
     public Util() {
     }
+
+    public static boolean isCustomerLogged(HttpServletRequest req){
+        return SessionManager.getCustomerFromSession(req) != null && SessionManager.getUserVerified(req) != null;
+    }
+
+
+
 
     public boolean isNotNull(String[] checkoutData) {
         for (String parameter : checkoutData) {
@@ -10,11 +22,6 @@ public class Util {
             }
         }
         return true;
-    }
-    public boolean checkNumber(String number){
-        String pattern = "^[1-9]\\d*$";
-        return number.matches(pattern);
-
     }
 
     public boolean isPaymentAndTermsChecked(String paymentMethod, String terms){

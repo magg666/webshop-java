@@ -15,12 +15,13 @@ import com.codecool.shop.util.Util;
 import com.codecool.shop.util.Validator;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/checkout"})
-public class CheckoutController extends MainServlet {
+public class CheckoutController extends HttpServlet {
 
     /**
      * Method get - renders template for checkout if user has items in cart/order
@@ -35,7 +36,7 @@ public class CheckoutController extends MainServlet {
             SessionManager.setMessageForUser(req, Message.EMPTY_CART.getMessage());
             resp.sendRedirect("/cart");
         } else {
-            renderTemplate(req, resp, "/checkoutTemplate.html", null);
+            PageCoordinator.renderTemplate(req, resp, "/checkoutTemplate.html", null);
         }SessionManager.clearAllMessages(req);
     }
 
