@@ -52,7 +52,7 @@ public class OrderManager {
     public static void saveOrder(Customer customer, OrderDao currentOrder, AllOrdersDao allOrders){
         int customerId = customer.getId();
             currentOrder.getOrder().setCustomerId(customerId);
-            allOrders.addFullOrderAndReturn(currentOrder.getOrder());
+//            allOrders.addFullOrderAndReturn(currentOrder.getOrder());
             currentOrder.clearOrder();
     }
 }
