@@ -6,6 +6,7 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.db_implementation.AllOrdersDaoJDBC;
 import com.codecool.shop.dao.implementation.CustomerDaoMem;
 import com.codecool.shop.model.Customer;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.service.PageCoordinator;
 import com.codecool.shop.service.SessionManager;
 import com.codecool.shop.service.form.UserDataForm;
@@ -116,8 +117,10 @@ public class CheckoutController extends HttpServlet {
         AllOrdersDao allOrders = new AllOrdersDaoJDBC();
 
         currentOrder.addCustomerId(customerId);
-        OrderDao savedOrder = allOrders.addFullOrderAndReturn(currentOrder.getOrder());
-        SessionManager.setOrderInSession(req, savedOrder);
+
+        Order savedOrder = allOrders.addFullOrderAndReturn(currentOrder.getOrder());
+        currentOrder.setOrder(savedOrder);
+        SessionManager.setOrderInSession(req, currentOrder);
         PageCoordinator.renderTemplate(req, resp, "/paymentTemplate.html", null);
 
     }
