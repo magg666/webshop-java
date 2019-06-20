@@ -5,7 +5,7 @@ import com.codecool.shop.model.Order;
 
 public interface CustomerDao {
     //CRUD
-    void addCustomer(Customer customer);
+    int addCustomer(Customer customer);
 
     Customer findById(int id);
 
@@ -15,7 +15,7 @@ public interface CustomerDao {
 
     void sendEmailToCustomer();
 
-    boolean doesCustomerExist(String email);
+    boolean isExistsEmail(String email);
 
     int getCustomerId(String email);
 

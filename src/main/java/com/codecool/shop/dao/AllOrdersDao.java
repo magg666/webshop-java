@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AllOrdersDao {
 
-    Order addFullOrderAndReturn(Order orderFromSession) ;
+    OrderDao addFullOrderAndReturn(Order orderFromSession) ;
 
     Order find(int orderId);
 
