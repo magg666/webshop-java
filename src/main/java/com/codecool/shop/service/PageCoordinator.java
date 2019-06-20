@@ -23,6 +23,7 @@ public class PageCoordinator {
 
     /**
      * Method allows putting variables in web context and renders pointed template, which uses this variables
+     * Also method puts order in session - on every page
      *
      * @param req
      * @param resp
@@ -33,6 +34,7 @@ public class PageCoordinator {
     public static void renderTemplate(HttpServletRequest req, HttpServletResponse resp, String template, Map<String, Object> optionalVariables) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        SessionManager.setOrderInSession(req);
 
         context.setVariables(optionalVariables);
         engine.process(template, context, resp.getWriter());
@@ -45,7 +47,7 @@ public class PageCoordinator {
      * @param req - Http Servlet request
      * @return true - if user's actions suggest, that he wants to look around products in shop
      */
-    public static boolean hasUserWantedToLookAround(HttpServletRequest req) {
+    public static boolean doesUserWantToLookAround(HttpServletRequest req) {
         String department = req.getParameter("department");
         String productsCategory = req.getParameter("cat");
         return department != null || productsCategory != null;
