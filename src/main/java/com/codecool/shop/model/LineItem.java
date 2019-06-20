@@ -11,6 +11,14 @@ public class LineItem extends BaseModel {
         this.summaryPrice = this.product.getDefaultPrice();
     }
 
+    public LineItem(int id, Product product, int quantity){
+        super(id);
+        this.product = product;
+        this.quantity = quantity;
+        this.summaryPrice = this.product.getDefaultPrice();
+
+    }
+
     public int getQuantity() {
         return quantity;
     }

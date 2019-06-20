@@ -19,12 +19,21 @@ public class Order extends BaseModel {
 
     }
 
-    public Order(int id, String date, int customerId, String paymentMethod, float totalPrice, String status) {
+    public Order(int id, String date, int customerId, String paymentMethod, float totalPrice, String status, List<LineItem> lineItemList) {
         super(id, date);
         this.customerId = customerId;
         this.paymentMethod = paymentMethod;
-        this.totalPrice = totalPrice;
+        if(totalPrice == 0){
+            this.totalPrice = defineTotalPrice();
+        } else {
+            this.totalPrice = totalPrice;
+        }
         this.status = status;
+        if(lineItemList != null){
+            this.lineItemList.addAll(lineItemList);
+        } else {
+            this.lineItemList = new ArrayList<>();
+        }
     }
 
     // Getters
