@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="meta.html :: copy">
+
+</head>
+<body>
+<nav th:include="header.html :: copy">
+</nav>
+<!--<nav th:include="departments.html :: copy">-->
+<!--</nav>-->
+
+<div class="section">
+    <form class="container" action="/checkout" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">Billing address</h3>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="first-name" placeholder="First Name"
+                               th:value='${session.customer != null}? ${session.customer.getFirstName()} : null'>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="last-name" placeholder="Last Name"
+                               th:value='${session.customer != null}? ${session.customer.getLastName()} : null'>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="address" placeholder="Address"
+                               th:value='${session.customer != null}? ${session.customer.getBillingAddress()} : null'>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="city" placeholder="City"
+                               th:value='${session.customer != null}? ${session.customer.getBillingCity()} : null'>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="country" placeholder="Country"
+                               th:value='${session.customer != null}? ${session.customer.getBillingCountry()} : null'>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code"
+                               pattern="[0-9]{2}\-[0-9]{3}"
+                               th:value='${session.customer != null}? ${session.customer.getBillingZipCode()} : null'>
+                        <small class="form-text text-muted">Zip code format: 12-123</small>
+                    </div>
+                    <div class="form-group">
+                        <input class="input" type="tel" name="tel" placeholder="Telephone"
+                               pattern="\d{3}[\-]\d{3}[\-]\d{3}"
+                               th:value='${session.customer != null}? ${session.customer.getPhone()} : null'>
+                        <small class="form-text text-muted">Phone number format: 123-123-123</small>
+                    </div>
+                </div>
+                <!-- /Billing Details -->
+
+                <!-- Shiping Details -->
+
+            </div>
+            <div class="col-md-6">
+                <div class="shiping-details">
+                    <div class="section-title">
+                        <h3 class="title">Shiping address</h3>
+                    </div>
+                    <div class="input-checkbox">
+                        <input type="checkbox" id="shiping-address" name="shipping-address" value="1"
+                               th:checked='${session.customer != null}'>
+                        <label for="shiping-address">
+                            <span></span>
+                            Ship to a diffrent address?
+                        </label>
+                        <div class="caption">
+                            <div class="form-group">
+                                <input class="input" type="text" name="ship-address" placeholder="Address"
+                                       th:value='${session.customer != null}? ${session.customer.getShippingAddress()} : null'/>
+                            </div>
+                            <div class="form-group">
+                                <input class="input" type="text" name="ship-city" placeholder="City"
+                                       th:value='${session.customer != null}? ${session.customer.getShippingCity()} : null'>
+                            </div>
+                            <div class="form-group">
+                                <input class="input" type="text" name="ship-country" placeholder="Country"
+                                       th:value='${session.customer != null}? ${session.customer.getShippingCountry()} : null'>
+                            </div>
+                            <div class="form-group">
+                                <input class="input" type="text" name="ship-zip-code" placeholder="ZIP Code"
+                                       th:value='${session.customer != null}? ${session.customer.getShippingZipCode()} : null'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="register-details">
+                    <th:block th:if="${session.verified == null}">
+                        <div class="section-title">
+                            <h3 class="title"><strong>Create</strong> an account.</h3>
+                        </div>
+                        <div class="form-group"><input class="form-control" type="email" name="email"
+                                                       placeholder="Email" pattern="^[A-Za-z0-9+_.-]+@(.+)$"/></div>
+                        <div class="form-group"><input class="form-control" type="password" name="password"
+                                                       placeholder="Password"/></div>
+                        <div class="form-group"><input class="form-control" type="password" name="password-repeat"
+                                                       placeholder="Password (repeat)"/></div>
+                        <div class="form-group">
+
+                            <a class="already" href="/login">You already have an account? Login here.</a>
+                        </div>
+                    </th:block>
+                    <div class="text-center">
+                        <button class="primary-btn order-submit" type="submit">
+                            submit
+                        </button>
+                    </div>
+
+
+                </div>
+                <th:block th:if="${session.messages}">
+                    <div class="alert alert-warning" role="alert" th:each="mess: ${session.messages}">
+                        <h6 class="text-muted" th:text="${mess.toUpperCase()}"></h6>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
