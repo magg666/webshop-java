@@ -32,6 +32,10 @@ public class BaseModel {
         this.description = description;
     }
 
+    BaseModel (int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
