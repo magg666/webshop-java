@@ -23,7 +23,7 @@ public class ProductDaoJDBC implements ProductDao {
     ProductDaoJDBC(DataBaseConfiguration dataBaseConfiguration) {
         this.dataBaseConfiguration = dataBaseConfiguration;
     }
-
+// TODO convert string with column names - parameters into string builder
     @Override
     public void add(Product product) {
         String query = "INSERT INTO products (name, description, price, currency, category_id, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";

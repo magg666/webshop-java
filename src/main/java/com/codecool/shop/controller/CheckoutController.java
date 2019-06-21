@@ -6,7 +6,6 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.db_implementation.AllOrdersDaoJDBC;
 import com.codecool.shop.dao.implementation.CustomerDaoMem;
 import com.codecool.shop.model.Customer;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.service.PageCoordinator;
 import com.codecool.shop.service.SessionManager;
 import com.codecool.shop.service.form.UserDataForm;
@@ -37,6 +36,7 @@ public class CheckoutController extends HttpServlet {
             SessionManager.setMessageForUser(req, Message.EMPTY_CART.getMessage());
             resp.sendRedirect("/cart");
         } else {
+            // TODO stałe z nazwami plików w pageCoord.
             PageCoordinator.renderTemplate(req, resp, "/checkoutTemplate.html", null);
             SessionManager.clearAllMessages(req);
         }
@@ -53,31 +53,22 @@ public class CheckoutController extends HttpServlet {
      * @param resp - Http response
      * @throws IOException
      */
+
+    // TODO wyciagnąć metody poniżej
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         CustomerDao allCustomers = CustomerDaoMem.getInstance();// JDBC
         UserDataForm userDataForm = new UserDataForm();
 
         if (Util.isCustomerLogged(req)) {
+
             Customer loggedCustomer = SessionManager.getCustomerFromSession(req);
             userDataForm.setCustomerData(req);
+
             if (loggedCustomer.getCustomerData(loggedCustomer).equals(userDataForm.getCustomerData())) {
                 saveOrderAndGoToPayment(req, resp, loggedCustomer.getId());
             } else {
-                Customer changedCustomer =
-                            new Customer(userDataForm.getCustomerData(),
-                                    loggedCustomer.getEmail(),
-                                    loggedCustomer.getPassword());
-                if (Validator.isMessage(userDataForm.getMessages())) {
-                    SessionManager.setMessageForUser(req, userDataForm.getMessages());
-                    SessionManager.setCustomerInSession(req, changedCustomer);
-                    resp.sendRedirect("/checkout");
-
-                } else {
-                    SessionManager.setCustomerInSession(req, changedCustomer);
-                    int customerId = allCustomers.getCustomerId(changedCustomer.getEmail());
-                    saveOrderAndGoToPayment(req, resp, customerId);
-                }
+                createValidatedCustomer(req, resp, allCustomers, userDataForm, loggedCustomer);
             }
         // customer is not logged
         } else {
@@ -90,9 +81,7 @@ public class CheckoutController extends HttpServlet {
             }
             if (Validator.isMessage(userDataForm.getMessages())) {
                 Customer notVerifiedCustomer = new Customer(userDataForm.getCustomerData(), userDataForm.getEmail(), "");
-                SessionManager.setMessageForUser(req, userDataForm.getMessages());
-                SessionManager.setCustomerInSession(req, notVerifiedCustomer);
-                resp.sendRedirect("/checkout");
+                setCustomerSessionData(req, resp, userDataForm, notVerifiedCustomer);
 
             } else {
                 String hashedPassword = HashPassword.getHashed(password);
@@ -105,6 +94,29 @@ public class CheckoutController extends HttpServlet {
             }
         }
     }
+
+    private void createValidatedCustomer(HttpServletRequest req, HttpServletResponse resp, CustomerDao allCustomers, UserDataForm userDataForm, Customer loggedCustomer) throws IOException {
+
+        Customer changedCustomer =
+                    new Customer(userDataForm.getCustomerData(),
+                            loggedCustomer.getEmail(),
+                            loggedCustomer.getPassword());
+        if (Validator.isMessage(userDataForm.getMessages())) {
+            setCustomerSessionData(req, resp, userDataForm, changedCustomer);
+
+        } else {
+            SessionManager.setCustomerInSession(req, changedCustomer);
+            int customerId = allCustomers.getCustomerId(changedCustomer.getEmail());
+            saveOrderAndGoToPayment(req, resp, customerId);
+        }
+    }
+
+    private void setCustomerSessionData(HttpServletRequest req, HttpServletResponse resp, UserDataForm userDataForm, Customer changedCustomer) throws IOException {
+        SessionManager.setMessageForUser(req, userDataForm.getMessages());
+        SessionManager.setCustomerInSession(req, changedCustomer);
+        resp.sendRedirect("/checkout");
+    }
+
     /**
      * Additional method to add customerId to order and save order in database
      * @param req - Http request
@@ -119,8 +131,8 @@ public class CheckoutController extends HttpServlet {
 
         currentOrder.addCustomerId(customerId);
 
-        Order savedOrder = allOrders.addFullOrderAndReturn(currentOrder.getOrder());
-        currentOrder.setOrder(savedOrder);
+//        Order savedOrder = allOrders.addFullOrderAndReturn(currentOrder.getOrder());
+//        currentOrder.setOrder(savedOrder);
         SessionManager.setOrderInSession(req, currentOrder);
         PageCoordinator.renderTemplate(req, resp, "/paymentTemplate.html", null);
 

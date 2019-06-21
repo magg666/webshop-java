@@ -11,8 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+// TODO sprawdź warunki początkowe
 class ProductCategoryDaoJDBCTest {
     private DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration("TEST_DATABASE");
     private ProductCategoryDao categories = new ProductCategoryDaoJDBC(dataBaseConfiguration);

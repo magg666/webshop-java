@@ -9,6 +9,7 @@ public class BaseModel {
     protected String name;
     transient String description;
 
+    // TODO - refactor constructors
     BaseModel() {
     }
 

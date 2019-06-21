@@ -29,6 +29,7 @@ public class Customer extends BaseModel {
     private String[] billingAddressList;
     private String[] shippingAddressList;
 
+    //TODO change to constants
     public Customer(Map<String, String> customerData, String email, String password) {
         firstName = customerData.get("first_name");
         lastName = customerData.get("last_name");

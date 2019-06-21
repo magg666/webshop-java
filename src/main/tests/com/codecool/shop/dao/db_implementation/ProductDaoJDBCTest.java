@@ -53,6 +53,7 @@ class ProductDaoJDBCTest {
 
     @Test
     void addProduct() {
+//        Product product1 = new Product(null, 0, "USD", null, null, null);
         Assertions.assertEquals(0, products.getAll().size());
         products.add(product);
         Assertions.assertEquals(1, products.getAll().size());

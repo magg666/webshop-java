@@ -19,17 +19,18 @@ public class Product extends BaseModel {
 
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
-        super(name, description);
-        this.setPrice(defaultPrice, currencyString);
-        this.supplier = supplier;
-        this.productCategory = productCategory;
+        this(0, name,description, defaultPrice, currencyString, productCategory, supplier);
+//        super(name, description);
+//        this.setPrice(defaultPrice, currencyString);
+//        this.supplier = supplier;
+//        this.productCategory = productCategory;
     }
 
+    // TODO placeholders - empty constructors
     public Product(int id, String name, float defaultPrice, String currencyString){
-        super(id, name);
-        this.setPrice(defaultPrice, currencyString);
+        this(id, name, "",defaultPrice, currencyString, new ProductCategory("laptop", ""), new Supplier(""));
     }
-
+// TODO validation in setters
     public float getDefaultPrice() {
         return defaultPrice;
     }

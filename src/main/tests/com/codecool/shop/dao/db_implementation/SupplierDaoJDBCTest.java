@@ -34,6 +34,7 @@ class SupplierDaoJDBCTest {
 
     @Test
     void addSuppliersAndCountGoodData() {
+        Assertions.assertEquals(0, suppliers.getAll().size());
         suppliers.add(supplier1);
         Assertions.assertEquals(1, suppliers.getAll().size());
         suppliers.add(supplier2);
@@ -44,6 +45,7 @@ class SupplierDaoJDBCTest {
 
     @Test
     void findSupplierById_NotNull() {
+        Assertions.assertEquals(0, suppliers.getAll().size());
         suppliers.add(supplier1);
         Assertions.assertNotNull(suppliers.find(1));
 
@@ -51,6 +53,7 @@ class SupplierDaoJDBCTest {
 
     @Test
     void findSupplierById_CorrectValue(){
+        Assertions.assertEquals(0, suppliers.getAll().size());
         suppliers.add(supplier1);
         suppliers.add(supplier2);
         suppliers.add(supplier3);
@@ -70,6 +73,7 @@ class SupplierDaoJDBCTest {
 
     @Test
     void removeIncorrect(){
+        Assertions.assertEquals(0, suppliers.getAll().size());
         suppliers.add(supplier1);
         suppliers.add(supplier2);
         suppliers.remove(7);
@@ -78,6 +82,7 @@ class SupplierDaoJDBCTest {
 
     @Test
     void getAllCheckSize() {
+        Assertions.assertEquals(0, suppliers.getAll().size());
         suppliers.add(supplier1);
         suppliers.add(supplier2);
         suppliers.add(supplier3);
@@ -86,6 +91,7 @@ class SupplierDaoJDBCTest {
 
     @Test
     void getAllCheckNotNull(){
+        Assertions.assertEquals(0, suppliers.getAll().size());
         suppliers.add(supplier1);
         suppliers.add(supplier2);
         suppliers.add(supplier3);
