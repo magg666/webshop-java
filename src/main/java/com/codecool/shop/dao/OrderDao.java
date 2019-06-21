@@ -10,6 +10,8 @@ public interface OrderDao {
 
     Order getOrder();
 
+    void setOrder(Order order);
+
     void add(Product product);
 
     void removeProductById(int productId);

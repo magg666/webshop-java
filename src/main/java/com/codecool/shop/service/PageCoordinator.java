@@ -7,13 +7,13 @@ import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * this class contains static methods to navigate on web page,
@@ -105,6 +105,7 @@ public class PageCoordinator {
      * Method to navigate between products by categories and departments.
      * It is adjust to use one and the same template
      * Handles some errors - redirect user to main page if error occurs
+     *
      * @param req
      * @param resp
      * @param products
@@ -137,11 +138,12 @@ public class PageCoordinator {
     /**
      * This is universal method to show every page in shop. It puts default variables for all pages in web context
      * This method should be used on every page, where user has an access to departments/ categories menu
+     *
      * @param req
      * @param resp
      * @param defaultTemplate - string with path to html template
-     * @param products - all products
-     * @param categories - all categories
+     * @param products        - all products
+     * @param categories      - all categories
      * @throws IOException
      */
     public static void goToRequestedPage(HttpServletRequest req, HttpServletResponse resp, String defaultTemplate, ProductDao products, ProductCategoryDao categories) throws IOException {
@@ -150,5 +152,42 @@ public class PageCoordinator {
         renderTemplate(req, resp, defaultTemplate, variables);
     }
 
+    /**
+     * This method sends email to customer
+     * @param customerEmail
+     */
+    public static void sendMail(String customerEmail) {
+        try {
+            final String fromEmail = "webshopcodecool@gmail.com"; //requires valid gmail id
+            final String password = "codecool666"; // correct password for gmail id
 
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+            props.put("mail.smtp.port", "587"); //TLS Port
+            props.put("mail.smtp.auth", "true"); //enable authentication
+            props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+
+            //create Authenticator object to pass in Session.getInstance argument
+            Authenticator auth = new Authenticator() {
+                //override the getPasswordAuthentication method
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(fromEmail, password);
+                }
+            };
+            Session session = Session.getInstance(props, auth);
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(customerEmail));
+
+            message.setSubject("Your order in Hot Cart");
+            message.setText("You ordered things, thank you");
+
+            Transport.send(message);
+        } catch (Exception ex) {
+            System.out.println("Mail fail");
+            System.out.println(ex);
+        }
+
+    }
 }

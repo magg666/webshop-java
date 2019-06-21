@@ -37,7 +37,8 @@ public class OrderController extends HttpServlet {
             resp.sendRedirect("/");
         } else {
             PageCoordinator.goToRequestedPage(req, resp, "/orderTemplate.html", products, categories);
-        }
+
+        }SessionManager.clearAllMessages(req);
     }
 
     /**

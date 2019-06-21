@@ -2,7 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.model.Util;
+import com.codecool.shop.util.Util;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

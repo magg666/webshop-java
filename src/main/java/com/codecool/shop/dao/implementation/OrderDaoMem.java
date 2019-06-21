@@ -24,10 +24,16 @@ public class OrderDaoMem implements OrderDao {
         return instance;
     }
 
+
     @Override
     public Order getOrder() {
         return this.order;
     }
+
+    @Override
+    public void setOrder(Order order){
+        this.order = order;
+    };
 
     @Override
     public void add(Product product) {

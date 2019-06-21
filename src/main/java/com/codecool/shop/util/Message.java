@@ -20,7 +20,8 @@ public enum Message {
     ALREADY_LOGGED(" you are already logged "),
     WRONG_TYPE(" the type of argument is wrong "),
     EMPTY_CART(" your cart is empty. Maybe put something nice into? "),
-    CART_SAVED(" you successfully saved your cart! You can find it in your account page. ");
+    CART_SAVED(" you successfully saved your cart! You can find it in your account page. "),
+    NOT_LOGGED(" you are not logged. ");
 
 
     private String message;
