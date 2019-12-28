@@ -1,7 +1,7 @@
 ## WebShop
 Java | JDBC | PostgreSQL | Servlets | JUnit | OOP
 Web Shop project. User can choose from multiple products, add them to chart, processed order and at the end receive email with confirmation. Data stored in DB.
-All dependencies in pom.xml. Uses Jetty Server
+All dependencies in pom.xml. Uses Jetty Server.
 Tests based on independent data base.
 
 Created to practice:
